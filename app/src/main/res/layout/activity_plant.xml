@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp">
+        <Button
+            android:id="@+id/a"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@null"
+            android:text="Add Plant"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryBlue"
+            android:textSize="30dp" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="350dp"
+            android:layout_height="250dp" />
+
+
+
+        <EditText
+            android:id="@+id/name_plant"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/Green"
+            android:hint="Plant Name"
+            android:inputType="textCapWords"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/WarnaBackgroundKeluarga"
+            android:textColorHint="@color/WarnaBackgroundKeluarga" />
+
+        <EditText
+            android:id="@+id/value_first"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/Green"
+            android:hint="First Value Nutrition"
+            android:inputType="number"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/WarnaBackgroundKeluarga"
+            android:textColorHint="@color/WarnaBackgroundKeluarga" />
+
+        <EditText
+            android:id="@+id/value_second"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/Green"
+            android:hint="Second Value Nutrition"
+            android:inputType="number"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/WarnaBackgroundKeluarga"
+            android:textColorHint="@color/WarnaBackgroundKeluarga   " />
+
+
+        <!-- Login Button -->
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@color/colorPrimary"
+            android:text="Submit"
+            android:textColor="@color/white" />
+
+        <!-- Link to Login Screen -->
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@color/btn_login"
+            android:text="Back"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

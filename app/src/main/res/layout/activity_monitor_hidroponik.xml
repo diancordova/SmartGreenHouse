@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activity.UserActivityDrawer"
+    >
+
+    <TextView
+        android:id="@+id/shape"
+        android:layout_width="410dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/Green"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTumbuhan" />
+
+
+    <TextView
+        android:id="@+id/intesitas_chaya2"
+        android:layout_width="216dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Status Pompa"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toEndOf="@+id/foto1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTumbuhan"
+        android:layout_width="272dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Status"
+        android:textAlignment="center"
+        android:textColor="@color/bg_main"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toEndOf="@+id/foto1"
+        app:layout_constraintTop_toBottomOf="@+id/intesitas_chaya2" />
+
+
+    <TextView
+        android:id="@+id/tvPH"
+        android:layout_width="122dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="60dp"
+        android:background="@color/Green"
+        android:gravity="center"
+        android:text="Status"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foto" />
+
+    <TextView
+        android:id="@+id/tvWaterLevel"
+        android:layout_width="122dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/Green"
+        android:gravity="center"
+        android:text="Status"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foto3"
+        app:layout_constraintVertical_bias="0.035" />
+
+    <TextView
+        android:id="@+id/tvNutrisi"
+        android:layout_width="122dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/Green"
+        android:gravity="center"
+        android:text="Status"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toEndOf="@+id/tvPH"
+        app:layout_constraintTop_toBottomOf="@+id/foto2" />
+
+    <TextView
+        android:id="@+id/tvSuhuAir"
+        android:layout_width="122dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/Green"
+        android:gravity="center"
+        android:text="Status"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toEndOf="@+id/tvWaterLevel"
+        app:layout_constraintTop_toBottomOf="@+id/foto4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="61dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="PH"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shape" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="115dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="Water Level"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPH" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="121dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        android:gravity="center"
+        android:text="Nutrisi"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/shape" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="121dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="60dp"
+        android:gravity="center"
+        android:text="Suhu Air"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tvNutrisi" />
+
+    <ImageView
+        android:id="@+id/foto1"
+        android:layout_width="95dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/icon_lettuce"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/foto"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ph"
+        app:layout_constraintEnd_toStartOf="@+id/foto2"
+        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPh1" />
+
+    <ImageView
+        android:id="@+id/foto3"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/waterlevel"
+        app:layout_constraintEnd_toStartOf="@+id/foto4"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWaterLevel1" />
+
+    <ImageView
+        android:id="@+id/foto2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="60dp"
+        android:src="@drawable/nutrisi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNutrisi1" />
+
+    <ImageView
+        android:id="@+id/foto4"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="56dp"
+        android:src="@drawable/suhu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSuhuAir1" />
+
+    <TextView
+        android:id="@+id/tvPh1"
+        android:layout_width="80dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="20dp"
+        android:textStyle=""
+        app:layout_constraintEnd_toStartOf="@+id/tvNutrisi1"
+        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/tvWaterLevel1"
+        android:layout_width="80dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="20dp"
+        android:textStyle=""
+        app:layout_constraintEnd_toStartOf="@+id/tvSuhuAir1"
+        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/tvNutrisi1"
+        android:layout_width="136dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="44dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="20dp"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/tvSuhuAir1"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="76dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="20dp"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+</android.support.constraint.ConstraintLayout>

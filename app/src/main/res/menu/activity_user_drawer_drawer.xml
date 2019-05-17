@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/DataTumbuhan"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Data Plant" />
+        <item
+            android:id="@+id/AddData"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Add Plant" />
+        <item
+            android:id="@+id/history"
+            android:icon="@drawable/googleg_disabled_color_18"
+            android:title="History" />
+
+
+    </group>
+
+    <item android:title="Monitoring">
+        <menu>
+
+            <item
+                android:id="@+id/greenHouse"
+                android:title="GreenHouse" />
+            <item
+                android:id="@+id/hidroPonik"
+                android:title="hidroPonik" />
+
+        </menu>
+    </item>
+    <item android:title="Controling">
+        <menu>
+            <item
+                android:id="@+id/tambahAir"
+                android:title="Tambah Air" />
+            <item
+                android:id="@+id/tambahNutrisi"
+                android:title="Tambah Nutrisi" />
+            <item
+                android:id="@+id/nyalakanKipas"
+                android:title="Nyalakan Pendingin" />
+            <item
+                android:id="@+id/nyalakanLampu"
+                android:title="Nyalakan Lampu UV" />
+            <item
+                android:id="@+id/logout"
+                android:title="Log Out" />
+        </menu>
+    </item>
+
+</menu>
