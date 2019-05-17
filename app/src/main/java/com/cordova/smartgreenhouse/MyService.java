@@ -57,7 +57,7 @@ public class MyService extends Service {
                 .setAutoCancel(true)
                 .setColor(12)
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                .setContentText("Pompa A Menyala");
+                .setContentText("Pompa Nutrisi A Menyala");
 
         builder.setOngoing(false);
         builder.setSound(suaraNotif);
