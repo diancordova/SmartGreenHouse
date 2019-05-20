@@ -36,17 +36,17 @@
     <item android:title="Controling">
         <menu>
             <item
-                android:id="@+id/tambahAir"
-                android:title="Tambah Air" />
+                android:id="@+id/controlling"
+                android:title="Controlling" />
             <item
-                android:id="@+id/tambahNutrisi"
-                android:title="Tambah Nutrisi" />
+                android:id="@+id/monitoring"
+                android:title="Monitoring" />
             <item
-                android:id="@+id/nyalakanKipas"
-                android:title="Nyalakan Pendingin" />
+                android:id="@+id/metod"
+                android:title="Hasil Metode" />
             <item
-                android:id="@+id/nyalakanLampu"
-                android:title="Nyalakan Lampu UV" />
+                android:id="@+id/aboout"
+                android:title="Tentang" />
             <item
                 android:id="@+id/logout"
                 android:title="Log Out" />

@@ -83,7 +83,6 @@ public class MyService extends Service {
                 }
 
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
@@ -91,3 +90,4 @@ public class MyService extends Service {
 
 
 }
+

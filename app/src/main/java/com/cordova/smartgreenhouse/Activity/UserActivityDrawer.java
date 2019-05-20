@@ -525,11 +525,11 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 Intent g = new Intent(UserActivityDrawer.this, HistoriActivity.class);
                 startActivity(g);
                 break;
-            case R.id.tambahAir:
+            case R.id.controlling:
                 Intent j = new Intent(UserActivityDrawer.this, ControlAirActivity.class);
                 startActivity(j);
                 break;
-            case R.id.tambahNutrisi:
+            case R.id.monitoring:
                 Intent o = new Intent(UserActivityDrawer.this, ControlNutrisiActivity.class);
                 startActivity(o);
                 break;
@@ -540,6 +540,14 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             case R.id.hidroPonik:
                 Intent l = new Intent(UserActivityDrawer.this, ActivityMonitorHidroponik.class);
                 startActivity(l);
+                break;
+            case R.id.metod:
+                Intent n = new Intent(UserActivityDrawer.this, ActivityMonitorGreenHouse.class);
+                startActivity(n);
+                break;
+            case R.id.aboout:
+                Intent m = new Intent(UserActivityDrawer.this, ActivityMonitorHidroponik.class);
+                startActivity(m);
                 break;
 
             case R.id.logout:
