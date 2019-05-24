@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTumbuhan" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMonitoring" />
 
 
     <TextView
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvTumbuhan"
+        android:id="@+id/tvMonitoring"
         android:layout_width="272dp"
         android:layout_height="31dp"
         android:layout_marginStart="8dp"
@@ -91,7 +91,7 @@
         app:layout_constraintVertical_bias="0.035" />
 
     <TextView
-        android:id="@+id/tvNutrisi"
+        android:id="@+id/value1"
         android:layout_width="122dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
@@ -186,7 +186,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/tvNutrisi" />
+        app:layout_constraintTop_toBottomOf="@+id/value1" />
 
     <ImageView
         android:id="@+id/foto1"
@@ -232,7 +232,7 @@
         android:layout_marginEnd="60dp"
         android:src="@drawable/nutrisi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNutrisi1" />
+        app:layout_constraintTop_toBottomOf="@+id/value2" />
 
     <ImageView
         android:id="@+id/foto4"
@@ -253,7 +253,7 @@
         android:text="0"
         android:textSize="20dp"
         android:textStyle=""
-        app:layout_constraintEnd_toStartOf="@+id/tvNutrisi1"
+        app:layout_constraintEnd_toStartOf="@+id/value2"
         app:layout_constraintHorizontal_bias="0.265"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -274,7 +274,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/tvNutrisi1"
+        android:id="@+id/value2"
         android:layout_width="136dp"
         android:layout_height="35dp"
         android:layout_marginEnd="44dp"

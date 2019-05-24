@@ -36,7 +36,7 @@ public class HistoriActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_plant);
+        setContentView(R.layout.activity_histori);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("history");
         mRecycleView = findViewById(R.id.recycler_view);

@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTumbuhan" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMonitoring" />
 
 
     <TextView
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/tvTumbuhan"
+        android:id="@+id/tvMonitoring"
         android:layout_width="122dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
@@ -117,7 +117,7 @@
 
 
     <TextView
-        android:id="@+id/tvUltraviolet"
+        android:id="@+id/tvTumbuhan"
         android:layout_width="62dp"
         android:layout_height="29dp"
         android:layout_marginTop="44dp"
@@ -131,7 +131,7 @@
         app:layout_constraintTop_toBottomOf="@+id/shape2" />
 
     <TextView
-        android:id="@+id/tvSprinkle"
+        android:id="@+id/tvMetode"
         android:layout_width="62dp"
         android:layout_height="29dp"
         android:layout_marginTop="8dp"
@@ -144,7 +144,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUltraviolet"
+        app:layout_constraintTop_toBottomOf="@+id/tvTumbuhan"
         app:layout_constraintVertical_bias="0.092" />
 
     <TextView
@@ -172,7 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/tvUltraviolet"
+        app:layout_constraintEnd_toStartOf="@+id/tvTumbuhan"
         app:layout_constraintTop_toBottomOf="@+id/shape2" />
 
     <Switch
@@ -183,7 +183,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvSprinkle"
+        app:layout_constraintEnd_toStartOf="@+id/tvMetode"
         app:layout_constraintTop_toBottomOf="@+id/switchUltraviolet"
         app:layout_constraintVertical_bias="0.092" />
 
@@ -240,7 +240,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.763"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNutrisi1" />
+        app:layout_constraintTop_toBottomOf="@+id/value2" />
 
     <TextView
         android:id="@+id/tvPh1"
@@ -256,7 +256,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/tvNutrisi1"
+        android:id="@+id/value2"
         android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"

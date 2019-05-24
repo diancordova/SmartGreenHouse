@@ -22,13 +22,11 @@ import android.content.Intent;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -36,8 +34,6 @@ import com.cordova.smartgreenhouse.Controller.SQLiteHandler;
 import com.cordova.smartgreenhouse.Controller.SessionManager;
 import com.cordova.smartgreenhouse.Models.mPlant;
 import com.cordova.smartgreenhouse.MyService;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,8 +42,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.cordova.smartgreenhouse.R;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,8 +78,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_user_drawer);
         spinner = findViewById(R.id.lokasiSpinner);
         fotoTumbuhan = (ImageView) findViewById(R.id.foto1);
-        switchA=findViewById(R.id.switchUltraviolet);
-        switchB=findViewById(R.id.switchInsaknet);
+//        switchA=findViewById(R.id.switchUltraviolet);
+//        switchB=findViewById(R.id.switchInsaknet);
 
         refPompaA = refHome.child("relay1");
         refPompaB = refHome.child("relay2");
@@ -94,8 +88,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         refPompaAisLoading = refPompaA.child("isLoading");
         refPompaBisLoading = refPompaB.child("isLoading");
 
-        controlPompaA(refStatusPompaA);
-        controlPompaB(refStatusPompsB);
+//        controlPompaA(refStatusPompaA);
+//        controlPompaB(refStatusPompsB);
 
         startService(new Intent(getApplicationContext(), MyService.class));
 
@@ -144,10 +138,10 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
 
         textViewTemp = (TextView) findViewById(R.id.tvPh1);
-        textViewHMD = (TextView) findViewById(R.id.tvNutrisi1);
-        textViewPompaA = findViewById(R.id.tvUltraviolet);
-        textViewPompaB = findViewById(R.id.tvSprinkle);
-        textViewTumbuhan = findViewById(R.id.tvTumbuhan);
+        textViewHMD = (TextView) findViewById(R.id.value2);
+        textViewPompaA = findViewById(R.id.tvTumbuhan);
+        textViewPompaB = findViewById(R.id.tvMetode);
+        textViewTumbuhan = findViewById(R.id.tvMonitoring);
         monitorTumbuhan(refNama,refUrl,textViewTumbuhan);
         monitorTemperature(refTemp, textViewTemp);
         monitorHMD(refHmd,textViewHMD);
@@ -194,74 +188,74 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             }
         });
 
-        switchA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    refStatusPompaA.setValue(isChecked);
-                    refPompaAisLoading.setValue(isChecked);
-                    refPompaAisLoading.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-                            if(isLoading){
-                                showDialog();
-                            }else{
-                                hideDialog();
-                                textViewPompaA.setText("Nyala");
-                                Snackbar snackbar = Snackbar
-                                        .make(switchA, "Informasi", Snackbar.LENGTH_LONG)
-                                        .setAction("Pompa A Menyala", new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                            }
-                                        });
-
-                                snackbar.show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }else{
-                    refStatusPompaA.setValue(isChecked);
-                    refPompaAisLoading.setValue(!isChecked);
-                    refPompaAisLoading.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-                            if(isLoading){
-                                showDialog();
-                            }else{
-                                hideDialog();
-                                textViewPompaA.setText("Mati");
-                                Snackbar snackbar = Snackbar
-                                        .make(switchA, "Informasi", Snackbar.LENGTH_LONG)
-                                        .setAction("Pompa A MATI", new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                            }
-                                        });
-
-                                snackbar.show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-                }
-            }
-        });
+//        switchA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                if(isChecked) {
+//                    refStatusPompaA.setValue(isChecked);
+//                    refPompaAisLoading.setValue(isChecked);
+//                    refPompaAisLoading.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
+//                            if(isLoading){
+//                                showDialog();
+//                            }else{
+//                                hideDialog();
+//                                textViewPompaA.setText("Nyala");
+//                                Snackbar snackbar = Snackbar
+//                                        .make(switchA, "Informasi", Snackbar.LENGTH_LONG)
+//                                        .setAction("Pompa A Menyala", new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View view) {
+//                                            }
+//                                        });
+//
+//                                snackbar.show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//                }else{
+//                    refStatusPompaA.setValue(isChecked);
+//                    refPompaAisLoading.setValue(!isChecked);
+//                    refPompaAisLoading.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
+//                            if(isLoading){
+//                                showDialog();
+//                            }else{
+//                                hideDialog();
+//                                textViewPompaA.setText("Mati");
+//                                Snackbar snackbar = Snackbar
+//                                        .make(switchA, "Informasi", Snackbar.LENGTH_LONG)
+//                                        .setAction("Pompa A MATI", new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View view) {
+//                                            }
+//                                        });
+//
+//                                snackbar.show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//                }
+//            }
+//        });
 
     }
     private void controlPompaB(final DatabaseReference refStatusPompsB) {
@@ -282,75 +276,75 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             }
         });
 
-        switchB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    refStatusPompsB.setValue(isChecked);
-                    refPompaBisLoading.setValue(isChecked);
-                    refPompaBisLoading.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-                            if(isLoading){
-                                showDialog();
-                            }else{
-                                hideDialog();
-                                textViewPompaB.setText("Nyala");
-                                Snackbar snackbar = Snackbar
-                                        .make(switchB, "Informasi", Snackbar.LENGTH_LONG)
-                                        .setAction("Pompa B Menyala", new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                            }
-                                        });
-
-                                snackbar.show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }else{
-                    refStatusPompsB.setValue(isChecked);
-                    textViewPompaB.setText("Mati");
-                    refPompaBisLoading.setValue(!isChecked);
-                    refPompaBisLoading.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-                            if(isLoading){
-                                showDialog();
-                            }else{
-                                hideDialog();
-                                textViewPompaB.setText("Mati");
-                                Snackbar snackbar = Snackbar
-                                        .make(switchB, "Informasi", Snackbar.LENGTH_LONG)
-                                        .setAction("Pompa B Mati", new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                            }
-                                        });
-
-                                snackbar.show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-                }
-            }
-        });
+//        switchB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                if(isChecked) {
+//                    refStatusPompsB.setValue(isChecked);
+//                    refPompaBisLoading.setValue(isChecked);
+//                    refPompaBisLoading.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
+//                            if(isLoading){
+//                                showDialog();
+//                            }else{
+//                                hideDialog();
+//                                textViewPompaB.setText("Nyala");
+//                                Snackbar snackbar = Snackbar
+//                                        .make(switchB, "Informasi", Snackbar.LENGTH_LONG)
+//                                        .setAction("Pompa B Menyala", new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View view) {
+//                                            }
+//                                        });
+//
+//                                snackbar.show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//                }else{
+//                    refStatusPompsB.setValue(isChecked);
+//                    textViewPompaB.setText("Mati");
+//                    refPompaBisLoading.setValue(!isChecked);
+//                    refPompaBisLoading.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
+//                            if(isLoading){
+//                                showDialog();
+//                            }else{
+//                                hideDialog();
+//                                textViewPompaB.setText("Mati");
+//                                Snackbar snackbar = Snackbar
+//                                        .make(switchB, "Informasi", Snackbar.LENGTH_LONG)
+//                                        .setAction("Pompa B Mati", new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View view) {
+//                                            }
+//                                        });
+//
+//                                snackbar.show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//                }
+//            }
+//        });
     }
 
     private void monitorTumbuhan(final DatabaseReference refTumbuhanPilihan,final DatabaseReference refUrl, final TextView textViewTumbuhan) {
@@ -538,7 +532,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 startActivity(k);
                 break;
             case R.id.hidroPonik:
-                Intent l = new Intent(UserActivityDrawer.this, ActivityMonitorHidroponik.class);
+                Intent l = new Intent(UserActivityDrawer.this, ControlNutrisiActivity.class);
                 startActivity(l);
                 break;
             case R.id.metod:
@@ -546,7 +540,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 startActivity(n);
                 break;
             case R.id.aboout:
-                Intent m = new Intent(UserActivityDrawer.this, ActivityMonitorHidroponik.class);
+                Intent m = new Intent(UserActivityDrawer.this, ControlNutrisiActivity.class);
                 startActivity(m);
                 break;
 

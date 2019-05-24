@@ -68,13 +68,13 @@ public class ControlNutrisiActivity extends AppCompatActivity {
 
 
         textViewPH = (TextView) findViewById(R.id.tvPh1);
-        textViewNutrisi = (TextView) findViewById(R.id.tvNutrisi1);
+        textViewNutrisi = (TextView) findViewById(R.id.value2);
         textViewWaterLevel = (TextView) findViewById(R.id.tvWaterLevel1);
         textViewSuhuAir = (TextView) findViewById(R.id.tvSuhuAir1);
-        textViewTumbuhan= (TextView) findViewById(R.id.tvTumbuhan);
+        textViewTumbuhan= (TextView) findViewById(R.id.tvMonitoring);
 
         textStatusPH = (TextView) findViewById(R.id.tvPH);
-        textStatusNutrisi = (TextView) findViewById(R.id.tvNutrisi);
+        textStatusNutrisi = (TextView) findViewById(R.id.value1);
         textStatusWaterLevel = (TextView) findViewById(R.id.tvWaterLevel);
         textStatusSuhuAir = (TextView) findViewById(R.id.tvSuhuAir);
 

@@ -3,7 +3,6 @@ package com.cordova.smartgreenhouse.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.cordova.smartgreenhouse.Controller.SQLiteHandler;
 import com.cordova.smartgreenhouse.Controller.SessionManager;
@@ -85,10 +83,10 @@ public class ControlAirActivity extends AppCompatActivity {
 
         //Inisialisasi object TextView
         textViewTemp = (TextView) findViewById(R.id.tvPh1);
-        textViewHMD = (TextView) findViewById(R.id.tvNutrisi1);
-        textViewStatusIntensitas = (TextView) findViewById(R.id.tvTumbuhan);
-        textViewStatusUV = (TextView) findViewById(R.id.tvUltraviolet);
-        textViewStatusSprinkle= (TextView) findViewById(R.id.tvSprinkle);
+        textViewHMD = (TextView) findViewById(R.id.value2);
+        textViewStatusIntensitas = (TextView) findViewById(R.id.tvMonitoring);
+        textViewStatusUV = (TextView) findViewById(R.id.tvTumbuhan);
+        textViewStatusSprinkle= (TextView) findViewById(R.id.tvMetode);
         switchOnOffUV = findViewById(R.id.switchUltraviolet);
         switchOnOffSprinkle = findViewById(R.id.switchInsaknet);
 
