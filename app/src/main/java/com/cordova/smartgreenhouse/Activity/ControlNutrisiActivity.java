@@ -1,13 +1,17 @@
 package com.cordova.smartgreenhouse.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.cordova.smartgreenhouse.Controller.SQLiteHandler;
 import com.cordova.smartgreenhouse.Controller.SessionManager;
 import com.cordova.smartgreenhouse.R;
@@ -27,9 +31,11 @@ public class ControlNutrisiActivity extends AppCompatActivity {
     DatabaseReference refHome = database.getReference("sensor");
     DatabaseReference refMetode = database.getReference("metode");
     DatabaseReference refPH,refNilaiPh,refTDS,refNilaiNutrisi,refWaterLevel,refNilaiWaterLevel,
-            refSuhuAir,refNilaiSuhuAir,refNutrisi,refStatusPH,refStatusNutrisi,refStatusWaterLevel,refStatusSuhuAir,refStatusMetode;
-    TextView textViewPH,textViewNutrisi,textViewWaterLevel,textViewTumbuhan,textViewSuhuAir,
-            textStatusPH,textStatusNutrisi,textStatusWaterLevel,textStatusSuhuAir;
+            refSuhuAir,refNilaiSuhuAir,refNutrisi,refStatusPH,refStatusNutrisi,refStatusWaterLevel,refStatusSuhuAir,refStatusMetode,refTumbuhan,
+    refNama,refUrl,refNutrisi1,refNutrisi2;
+    TextView textViewPH,textViewNutrisi,textViewWaterLevel,textViewTumbuhan,textViewSuhuAir,textViewTumbuhan1,
+            textStatusPH,textStatusNutrisi,textStatusWaterLevel,textStatusSuhuAir,textViewNilai1,textViewNilai2;
+    ImageView fotoTumbuhan2;
     private FirebaseAuth firebaseAuth;
     private SessionManager session;
     private String temperature_,humadity;
@@ -41,6 +47,7 @@ public class ControlNutrisiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         database1 = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+        setTitle("Monitoring");
 
         db = new SQLiteHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
@@ -67,11 +74,23 @@ public class ControlNutrisiActivity extends AppCompatActivity {
         refStatusSuhuAir = refSuhuAir.child("status");
 
 
+        refTumbuhan = database.getReference("pilihTumbuhan");
+        refNama = refTumbuhan.child("name");
+        refUrl = refTumbuhan.child("url");
+        refNutrisi1 = refTumbuhan.child("firstValue");
+        refNutrisi2 =refTumbuhan.child("secondValue");
+
+
         textViewPH = (TextView) findViewById(R.id.tvPh1);
-        textViewNutrisi = (TextView) findViewById(R.id.value2);
+        textViewNutrisi = (TextView) findViewById(R.id.tvNutrisi1);
         textViewWaterLevel = (TextView) findViewById(R.id.tvWaterLevel1);
         textViewSuhuAir = (TextView) findViewById(R.id.tvSuhuAir1);
         textViewTumbuhan= (TextView) findViewById(R.id.tvMonitoring);
+        textViewTumbuhan1= (TextView) findViewById(R.id.tvTumbuhan);
+        textViewNilai1 = findViewById(R.id.nilai1);
+        textViewNilai2 = findViewById(R.id.nilai2);
+        fotoTumbuhan2=findViewById(R.id.foto2);
+
 
         textStatusPH = (TextView) findViewById(R.id.tvPH);
         textStatusNutrisi = (TextView) findViewById(R.id.value1);
@@ -80,7 +99,7 @@ public class ControlNutrisiActivity extends AppCompatActivity {
 
 
 
-        monitorTumbuhan(refStatusMetode,textViewTumbuhan);
+        monitorTumbuhan(refStatusMetode,refNama,refNutrisi1,refNutrisi2,refUrl,textViewTumbuhan,textViewTumbuhan1,textViewNilai1,textViewNilai2);
         monitorPH(refNilaiPh, textViewPH);
         monitorStatusPH(refStatusPH, textStatusPH);
         monitorNutrisi(refNilaiNutrisi,textViewNutrisi);
@@ -90,13 +109,65 @@ public class ControlNutrisiActivity extends AppCompatActivity {
         monitorSuhuAir(refNilaiSuhuAir,textViewSuhuAir);
         monitorStatusSuhuAir(refStatusSuhuAir,textStatusSuhuAir);
 
-    }
 
-    private void monitorTumbuhan(final DatabaseReference refTumbuhanPilihan, final TextView textViewTumbuhan) {
-        refTumbuhanPilihan.addValueEventListener(new ValueEventListener() {
+
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(ControlNutrisiActivity.this, UserActivityDrawer.class);
+        startActivity(i);
+    }
+    private void monitorTumbuhan(final DatabaseReference refStatusMetode,final DatabaseReference refNama,
+                                 final DatabaseReference refNutrisi1,final DatabaseReference refNutrisi2,final DatabaseReference refUrl,
+                                 final TextView textViewTumbuhan,final TextView textViewTumbuhan1,final TextView textViewNilai1 ,final TextView textViewNilai2) {
+        refStatusMetode.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textViewTumbuhan.setText(dataSnapshot.getValue() + " ");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        refNama.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                textViewTumbuhan1.setText(dataSnapshot.getValue() + " ");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        refNutrisi1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                textViewNilai1.setText(dataSnapshot.getValue() + " ");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        refNutrisi2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                textViewNilai2.setText(dataSnapshot.getValue() + " ");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        refUrl.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshott) {
+                Glide.with(getApplicationContext()).load(dataSnapshott.getValue()).placeholder(R.drawable.loading).apply(RequestOptions.circleCropTransform()).into(fotoTumbuhan2);
             }
 
             @Override

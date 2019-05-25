@@ -6,11 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.cordova.smartgreenhouse.Models.mHistory;
 import com.cordova.smartgreenhouse.R;
 
@@ -58,9 +55,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             tanggal = (TextView) itemView.findViewById(R.id.nameP);
-            waktu = (TextView) itemView.findViewById(R.id.value1);
+            waktu = (TextView) itemView.findViewById(R.id.nilai1);
             nutrisi = (TextView) itemView.findViewById(R.id.text);
-            ph = (TextView) itemView.findViewById(R.id.value2);
+            ph = (TextView) itemView.findViewById(R.id.nilai2);
             suhu = (TextView) itemView.findViewById(R.id.value);
         }
     }

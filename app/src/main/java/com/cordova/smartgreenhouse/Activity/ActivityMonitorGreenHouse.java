@@ -3,6 +3,7 @@ package com.cordova.smartgreenhouse.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class ActivityMonitorGreenHouse extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        setTitle("Green House");
+        setTitle("Controlling");
 
         //------------NILAI DATA FIREBASE DARI SENSOR DHT-----------//
         refDHT = refHome.child("dht");
@@ -82,8 +83,8 @@ public class ActivityMonitorGreenHouse extends AppCompatActivity {
         refIsLoading1 = refManual.child("isLoading1");
 
         //Inisialisasi object TextView
-        textViewTemp = (TextView) findViewById(R.id.tvPh1);
-        textViewHMD = (TextView) findViewById(R.id.value2);
+        textViewTemp = (TextView) findViewById(R.id.tvPH);
+        textViewHMD = (TextView) findViewById(R.id.nilai2);
         textViewStatusIntensitas = (TextView) findViewById(R.id.tvMonitoring);
         textViewStatusUV = (TextView) findViewById(R.id.tvTumbuhan);
         textViewStatusSprinkle= (TextView) findViewById(R.id.tvMetode);
@@ -302,5 +303,10 @@ public class ActivityMonitorGreenHouse extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(ActivityMonitorGreenHouse.this, UserActivityDrawer.class);
+        startActivity(i);
     }
 }

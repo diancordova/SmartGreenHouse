@@ -2,7 +2,6 @@ package com.cordova.smartgreenhouse.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -23,8 +22,6 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -67,8 +64,8 @@ public class EditPlant extends AppCompatActivity {
         setContentView(R.layout.activity_edit_plant);
 
         inputNamePlant = findViewById(R.id.name);
-        inputFirstValue = findViewById(R.id.value1);
-        inputSecondValue = findViewById(R.id.value2);
+        inputFirstValue = findViewById(R.id.nilai1);
+        inputSecondValue = findViewById(R.id.nilai2);
         btnEditPlant = findViewById(R.id.btnEditPlant);
         image = findViewById(R.id.img);
 

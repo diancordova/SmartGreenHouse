@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/img" />
 
     <EditText
-        android:id="@+id/value1"
+        android:id="@+id/nilai1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -58,7 +58,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <EditText
-        android:id="@+id/value2"
+        android:id="@+id/nilai2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -69,7 +69,7 @@
         android:singleLine="true"
         android:textColor="@color/input_register"
         android:textColorHint="@color/input_register_hint"
-        app:layout_constraintTop_toBottomOf="@+id/value1"
+        app:layout_constraintTop_toBottomOf="@+id/nilai1"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
@@ -80,7 +80,7 @@
         android:background="@color/Green"
         android:text="Edit"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/value2"
+        app:layout_constraintTop_toBottomOf="@+id/nilai2"
         tools:layout_editor_absoluteX="0dp" />
 
 

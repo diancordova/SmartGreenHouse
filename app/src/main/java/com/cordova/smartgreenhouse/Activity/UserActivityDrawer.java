@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -42,6 +43,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.cordova.smartgreenhouse.R;
+import com.smarteist.autoimageslider.DefaultSliderView;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderLayout;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +62,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
     List<mPlant> listmPlant;
     ImageView fotoTumbuhan;
     private DatabaseReference databaseReference, databaseLog;
+    CardView cvMonitor,cvControl,cvMetode,cvHelp;
     TextView textViewTemp,textViewHMD,textViewTumbuhan,textViewPompaA,textViewPompaB;
     private FirebaseAuth firebaseAuth;
     private SessionManager session;
@@ -65,6 +72,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
     Spinner spinner;
     List<String> list1;
     Switch switchA,switchB;
+    SliderLayout sliderLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +85,11 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_drawer);
         spinner = findViewById(R.id.lokasiSpinner);
-        fotoTumbuhan = (ImageView) findViewById(R.id.foto1);
-//        switchA=findViewById(R.id.switchUltraviolet);
-//        switchB=findViewById(R.id.switchInsaknet);
+        fotoTumbuhan = (ImageView) findViewById(R.id.foto2);
+        cvMonitor=findViewById(R.id.cvMonitor);
+        cvControl=findViewById(R.id.cvControl);
+        cvMetode=findViewById(R.id.cvMetode);
+        cvHelp=findViewById(R.id.cvHelp);
 
         refPompaA = refHome.child("relay1");
         refPompaB = refHome.child("relay2");
@@ -92,6 +102,11 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 //        controlPompaB(refStatusPompsB);
 
         startService(new Intent(getApplicationContext(), MyService.class));
+        sliderLayout = findViewById(R.id.imageSlider);
+        sliderLayout.setIndicatorAnimation(IndicatorAnimations.SWAP); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderLayout.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
+        sliderLayout.setScrollTimeInSec(5); //set scroll delay in seconds :
+        setSliderViews();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -109,6 +124,25 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             }
         });
+        cvMonitor.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        ControlNutrisiActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        cvControl.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        ActivityMonitorGreenHouse.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("plant");
         databaseLog = FirebaseDatabase.getInstance().getReference().child("log");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -137,8 +171,9 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
 
 
-        textViewTemp = (TextView) findViewById(R.id.tvPh1);
-        textViewHMD = (TextView) findViewById(R.id.value2);
+
+        textViewTemp = (TextView) findViewById(R.id.tvPH);
+        textViewHMD = (TextView) findViewById(R.id.nilai2);
         textViewPompaA = findViewById(R.id.tvTumbuhan);
         textViewPompaB = findViewById(R.id.tvMetode);
         textViewTumbuhan = findViewById(R.id.tvMonitoring);
@@ -188,74 +223,6 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             }
         });
 
-//        switchA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                if(isChecked) {
-//                    refStatusPompaA.setValue(isChecked);
-//                    refPompaAisLoading.setValue(isChecked);
-//                    refPompaAisLoading.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-//                            if(isLoading){
-//                                showDialog();
-//                            }else{
-//                                hideDialog();
-//                                textViewPompaA.setText("Nyala");
-//                                Snackbar snackbar = Snackbar
-//                                        .make(switchA, "Informasi", Snackbar.LENGTH_LONG)
-//                                        .setAction("Pompa A Menyala", new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View view) {
-//                                            }
-//                                        });
-//
-//                                snackbar.show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//
-//                }else{
-//                    refStatusPompaA.setValue(isChecked);
-//                    refPompaAisLoading.setValue(!isChecked);
-//                    refPompaAisLoading.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-//                            if(isLoading){
-//                                showDialog();
-//                            }else{
-//                                hideDialog();
-//                                textViewPompaA.setText("Mati");
-//                                Snackbar snackbar = Snackbar
-//                                        .make(switchA, "Informasi", Snackbar.LENGTH_LONG)
-//                                        .setAction("Pompa A MATI", new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View view) {
-//                                            }
-//                                        });
-//
-//                                snackbar.show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//
-//
-//
-//                }
-//            }
-//        });
 
     }
     private void controlPompaB(final DatabaseReference refStatusPompsB) {
@@ -263,9 +230,9 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Boolean nyala = (Boolean) dataSnapshot.getValue();
-                if (nyala){
+                if (nyala) {
                     textViewPompaB.setText("Nyala");
-                }else{
+                } else {
                     textViewPompaB.setText("Mati");
                 }
             }
@@ -275,83 +242,18 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             }
         });
-
-//        switchB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                if(isChecked) {
-//                    refStatusPompsB.setValue(isChecked);
-//                    refPompaBisLoading.setValue(isChecked);
-//                    refPompaBisLoading.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-//                            if(isLoading){
-//                                showDialog();
-//                            }else{
-//                                hideDialog();
-//                                textViewPompaB.setText("Nyala");
-//                                Snackbar snackbar = Snackbar
-//                                        .make(switchB, "Informasi", Snackbar.LENGTH_LONG)
-//                                        .setAction("Pompa B Menyala", new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View view) {
-//                                            }
-//                                        });
-//
-//                                snackbar.show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//
-//                }else{
-//                    refStatusPompsB.setValue(isChecked);
-//                    textViewPompaB.setText("Mati");
-//                    refPompaBisLoading.setValue(!isChecked);
-//                    refPompaBisLoading.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            Boolean isLoading = (Boolean) dataSnapshot.getValue();
-//                            if(isLoading){
-//                                showDialog();
-//                            }else{
-//                                hideDialog();
-//                                textViewPompaB.setText("Mati");
-//                                Snackbar snackbar = Snackbar
-//                                        .make(switchB, "Informasi", Snackbar.LENGTH_LONG)
-//                                        .setAction("Pompa B Mati", new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View view) {
-//                                            }
-//                                        });
-//
-//                                snackbar.show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//
-//
-//
-//                }
-//            }
-//        });
     }
 
+
+
+
     private void monitorTumbuhan(final DatabaseReference refTumbuhanPilihan,final DatabaseReference refUrl, final TextView textViewTumbuhan) {
+        showDialog();
         refTumbuhanPilihan.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textViewTumbuhan.setText(dataSnapshot.getValue() + " ");
+                hideDialog();
             }
 
             @Override
@@ -409,7 +311,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
     private void spinnerStatus(){
 
-
+        showDialog();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
 
@@ -423,7 +325,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                     list1.add(lP.getName().toString());
                     adapterPlant.notifyDataSetChanged();
                 }
-
+                hideDialog();
             }
 
             @Override
@@ -552,8 +454,51 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    private void setSliderViews() {
+
+        for (int i = 0; i <= 3; i++) {
+
+            DefaultSliderView sliderView = new DefaultSliderView(this);
+
+            switch (i) {
+                case 0:
+                    sliderView.setImageUrl("https://innovate2019.tinc.id/assets/uploads/greenhouse1.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+                    sliderView.setDescription("Implementasi SPRINGKLER guna mendinginkan suhu yang berada didalam GREENHOUSE " );
+                    break;
+                case 1:
+                    sliderView.setImageUrl("https://innovate2019.tinc.id/assets/uploads/greenhouse2.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+                    sliderView.setDescription("Penggunaan teknik hidroponik pada tumbuhan sawi pakcoy");
+                    break;
+                case 2:
+                    sliderView.setImageUrl("https://innovate2019.tinc.id/assets/uploads/greenhouse3.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+                    sliderView.setDescription("Implementasi Lampu UltraViolet guna meningkatkan mutu tumbuhan hidroponik  " );
+                    break;
+                case 3:
+                    sliderView.setImageUrl("https://innovate2019.tinc.id/assets/uploads/greenhouse4.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+                    sliderView.setDescription("Implementasi Sistem Panel BOX" );
+                    break;
+            }
+
+            sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            final int finalI = i;
+
+            sliderView.setOnSliderClickListener(new SliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(SliderView sliderView) {
+                    Toast.makeText(UserActivityDrawer.this, "This is slider " + (finalI + 1), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+            //at last add this view in your layout :
+            sliderLayout.addSliderView(sliderView);
+        }
+
+    }
     private void showDialog() {
         if (!pDialog.isShowing())
+            pDialog.setMessage("Loading ....");
             pDialog.show();
     }
 
@@ -561,4 +506,5 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
 }

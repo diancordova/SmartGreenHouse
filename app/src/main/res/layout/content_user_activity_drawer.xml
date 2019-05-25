@@ -40,7 +40,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/foto1"
+                        android:id="@+id/foto2"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
                         android:layout_weight="1"
@@ -66,19 +66,19 @@
                                 android:text="Nutrisi : " />
 
                             <TextView
-                                android:id="@+id/value1"
+                                android:id="@+id/nilai1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="TextView" />
 
                             <TextView
-                                android:id="@+id/tvPh1"
+                                android:id="@+id/tvPH"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
 
                             <TextView
-                                android:id="@+id/value2"
+                                android:id="@+id/nilai2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -102,60 +102,117 @@
 
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".Activity.UserActivityDrawer">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvMonitor"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="50dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvMonitor"
+                    android:layout_width="1dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:minWidth="2dp"
+                    app:cardBackgroundColor="@color/WarnaBackgroundKeluarga"
+                    app:cardCornerRadius="10dp">
 
-                    <ImageView
-                        android:id="@+id/monitorImage"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:textAlignment="center"
-                        app:srcCompat="@drawable/monitor" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/metodeView"
+                            android:layout_width="40dp"
+                            android:layout_height="80dp"
+                            android:layout_marginRight="0dp"
+                            app:srcCompat="@drawable/monitor" />
 
-            </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvControl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="50dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvControl"
+                    android:layout_width="1dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:textAlignment="center">
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
 
-                    <ImageView
-                        android:id="@+id/controllingImage"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        app:srcCompat="@drawable/controlling" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/metodeView"
+                            android:layout_width="40dp"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/controlling" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvMetode"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/monitorImage"
+                            android:layout_width="40dp"
+                            android:layout_height="80dp"
+                            android:textAlignment="center"
+                            app:srcCompat="@drawable/blockchain" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvHelp"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:textAlignment="center">
+
+                        <ImageView
+                            android:id="@+id/controllingImage"
+                            android:layout_width="40dp"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/help3" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -164,84 +221,30 @@
 
             <TextView
                 android:id="@+id/tvMetode"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:text="Monitor"
                 android:textAlignment="center"
                 android:textColor="#46AA48" />
 
             <TextView
-                android:id="@+id/textView161"
+                android:id="@+id/textView1611"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1"
-                android:text="Controlling"
+                android:text="Control"
                 android:textAlignment="center"
                 android:textColor="#46AA48" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvMetode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="50dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/metodeView"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        app:srcCompat="@drawable/blockchain" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="50dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        app:srcCompat="@drawable/help3" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvMetode"
+                android:id="@+id/tvMetode1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:text="Metode"
                 android:textAlignment="center"
@@ -251,11 +254,27 @@
                 android:id="@+id/textView161"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:text="Help"
                 android:textAlignment="center"
                 android:textColor="#46AA48" />
         </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="313dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="5dp">
+
+            <com.smarteist.autoimageslider.SliderLayout
+                android:id="@+id/imageSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="286dp"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:textAlignment="center" />
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 </ScrollView>

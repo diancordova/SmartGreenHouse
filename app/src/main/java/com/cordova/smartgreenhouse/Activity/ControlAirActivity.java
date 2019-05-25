@@ -82,8 +82,8 @@ public class ControlAirActivity extends AppCompatActivity {
         refIsLoading1 = refManual.child("isLoading1");
 
         //Inisialisasi object TextView
-        textViewTemp = (TextView) findViewById(R.id.tvPh1);
-        textViewHMD = (TextView) findViewById(R.id.value2);
+        textViewTemp = (TextView) findViewById(R.id.tvPH);
+        textViewHMD = (TextView) findViewById(R.id.nilai2);
         textViewStatusIntensitas = (TextView) findViewById(R.id.tvMonitoring);
         textViewStatusUV = (TextView) findViewById(R.id.tvTumbuhan);
         textViewStatusSprinkle= (TextView) findViewById(R.id.tvMetode);

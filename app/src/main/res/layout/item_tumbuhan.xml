@@ -61,11 +61,11 @@
         android:layout_marginEnd="12dp"
         android:text="_"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/value2"
+        app:layout_constraintEnd_toStartOf="@+id/nilai2"
         app:layout_constraintTop_toTopOf="@+id/text" />
 
     <TextView
-        android:id="@+id/value1"
+        android:id="@+id/nilai1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toTopOf="@+id/text" />
 
     <TextView
-        android:id="@+id/value2"
+        android:id="@+id/nilai2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
