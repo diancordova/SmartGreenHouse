@@ -3,6 +3,7 @@ package com.cordova.smartgreenhouse.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.transition.Transition;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,9 +114,9 @@ public class ControlNutrisiActivity extends AppCompatActivity {
 
     }
     public void onBackPressed() {
-        super.onBackPressed();
         Intent i=new Intent(ControlNutrisiActivity.this, UserActivityDrawer.class);
         startActivity(i);
+        overridePendingTransition(R.anim.fade_out,R.anim.fade_out);
     }
     private void monitorTumbuhan(final DatabaseReference refStatusMetode,final DatabaseReference refNama,
                                  final DatabaseReference refNutrisi1,final DatabaseReference refNutrisi2,final DatabaseReference refUrl,

@@ -28,7 +28,6 @@ android {
     }
 
 
-
     lintOptions {
         quiet true
         abortOnError false

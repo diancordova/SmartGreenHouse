@@ -20,27 +20,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ActivityMonitorGreenHouse" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.SplashScreen"
+            android:theme="@style/SplashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.ActivityMonitorGreenHouse" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.UserActivity" />
         <activity android:name=".Activity.PlantActivity" />
         <activity android:name=".Activity.HistoriActivity" />
         <activity
             android:name=".Activity.UserActivityDrawer"
-            android:label="@string/title_activity_user_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.ListPlant" />
         <activity android:name=".Activity.DataList" />
         <activity android:name=".Activity.EditPlant" />
         <activity android:name=".Activity.ControlAirActivity" />
-        <activity android:name=".Activity.ControlNutrisiActivity" />
+        <activity android:name=".Activity.ControlNutrisiActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <service android:name=".Models.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -51,15 +54,16 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:enabled="true" android:name=".MyService"></service>
+        <service
+            android:name=".MyService"
+            android:enabled="true" />
+
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />
         <meta-data
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
-
-
     </application>
 
 </manifest>

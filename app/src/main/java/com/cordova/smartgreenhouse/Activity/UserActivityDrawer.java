@@ -76,7 +76,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setTitle("");
         database1 = FirebaseDatabase.getInstance().getReference();
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
@@ -130,7 +130,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 Intent i = new Intent(getApplicationContext(),
                         ControlNutrisiActivity.class);
                 startActivity(i);
-                finish();
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
             }
         });
         cvControl.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +140,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 Intent i = new Intent(getApplicationContext(),
                         ActivityMonitorGreenHouse.class);
                 startActivity(i);
-                finish();
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
             }
         });
 
@@ -157,7 +159,6 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
         spinner.setAdapter(adapterPlant);
         spinnerStatus();
-        setTitle("RealTime Monitor");
         refDHT = refHome.child("dht");
         refTemp = refDHT.child("temp");
 
