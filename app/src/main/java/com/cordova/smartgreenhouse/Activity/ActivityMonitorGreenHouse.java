@@ -89,7 +89,7 @@ public class ActivityMonitorGreenHouse extends AppCompatActivity {
         textViewStatusUV = (TextView) findViewById(R.id.tvTumbuhan);
         textViewStatusSprinkle= (TextView) findViewById(R.id.tvMetode);
         switchOnOffUV = findViewById(R.id.switchUltraviolet);
-        switchOnOffSprinkle = findViewById(R.id.switchInsaknet);
+        switchOnOffSprinkle = findViewById(R.id.switchSpringkler);
 
         monitorTemperature(refTemp, textViewTemp);
         monitorHMD(refHmd,textViewHMD);

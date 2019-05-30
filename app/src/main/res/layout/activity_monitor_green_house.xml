@@ -35,7 +35,7 @@
         android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foto2" />
+        app:layout_constraintTop_toBottomOf="@+id/fotoTumbuhan" />
 
     <TextView
         android:id="@+id/textView5"
@@ -66,7 +66,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/foto2"
+        app:layout_constraintStart_toEndOf="@+id/fotoTumbuhan"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
@@ -83,7 +83,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/foto2"
+        app:layout_constraintStart_toEndOf="@+id/fotoTumbuhan"
         app:layout_constraintTop_toBottomOf="@+id/intesitas_chaya" />
 
 
@@ -160,7 +160,7 @@
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/switchInsaknet"
+        app:layout_constraintEnd_toStartOf="@+id/switchSpringkler"
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
@@ -176,7 +176,7 @@
         app:layout_constraintTop_toBottomOf="@+id/shape2" />
 
     <Switch
-        android:id="@+id/switchInsaknet"
+        android:id="@+id/switchSpringkler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -204,7 +204,7 @@
         app:layout_constraintTop_toBottomOf="@+id/shape" />
 
     <ImageView
-        android:id="@+id/foto2"
+        android:id="@+id/fotoTumbuhan"
         android:layout_width="95dp"
         android:layout_height="93dp"
         android:layout_marginStart="8dp"
@@ -224,13 +224,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/suhu1"
-        app:layout_constraintEnd_toStartOf="@+id/foto2"
+        app:layout_constraintEnd_toStartOf="@+id/fotoTumbuhan"
         app:layout_constraintHorizontal_bias="0.309"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPH" />
 
     <ImageView
-        android:id="@+id/foto2"
+        android:id="@+id/fotoTumbuhan"
         android:layout_width="95dp"
         android:layout_height="93dp"
         android:layout_marginStart="8dp"

@@ -20,7 +20,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.SplashScreen"
+        <activity android:name=".Activity.GraphAvtivity"></activity>
+        <activity
+            android:name=".Activity.MetodeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.SplashScreen"
             android:theme="@style/SplashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.ActivityMonitorGreenHouse" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.UserActivity" />
@@ -40,9 +45,12 @@
         <activity android:name=".Activity.ListPlant" />
         <activity android:name=".Activity.DataList" />
         <activity android:name=".Activity.EditPlant" />
-        <activity android:name=".Activity.ControlAirActivity" />
-        <activity android:name=".Activity.ControlNutrisiActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activity.ControllingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.MonitoringActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".Models.MyFirebaseMessagingService">
             <intent-filter>

@@ -55,7 +55,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             nameP = (TextView) itemView.findViewById(R.id.nameP);
-            value1 = (TextView) itemView.findViewById(R.id.nilai1);
+            value1 = (TextView) itemView.findViewById(R.id.nilaiPH);
             value2 = (TextView) itemView.findViewById(R.id.nilai2);
             imageP = (ImageView) itemView.findViewById(R.id.imageP);
         }

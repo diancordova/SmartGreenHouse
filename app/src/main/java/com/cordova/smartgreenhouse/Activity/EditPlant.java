@@ -64,7 +64,7 @@ public class EditPlant extends AppCompatActivity {
         setContentView(R.layout.activity_edit_plant);
 
         inputNamePlant = findViewById(R.id.name);
-        inputFirstValue = findViewById(R.id.nilai1);
+        inputFirstValue = findViewById(R.id.nilaiPH);
         inputSecondValue = findViewById(R.id.nilai2);
         btnEditPlant = findViewById(R.id.btnEditPlant);
         image = findViewById(R.id.img);

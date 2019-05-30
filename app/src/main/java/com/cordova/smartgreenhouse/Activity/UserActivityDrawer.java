@@ -1,8 +1,11 @@
 package com.cordova.smartgreenhouse.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -58,12 +61,13 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
     DatabaseReference refHome = database.getReference("sensor");
     DatabaseReference refDHT, refHumadity, refTemp,
             refHmd,refTumbuhan,refNama,refUrl,refPompaA,refPompaB,
-            refStatusPompaA,refStatusPompsB,refPompaAisLoading,refPompaBisLoading;
+            refStatusPompaA,refStatusPompsB,refPompaAisLoading,refPompaBisLoading,
+            refNutrisi1,refNutrisi2;
     List<mPlant> listmPlant;
     ImageView fotoTumbuhan;
     private DatabaseReference databaseReference, databaseLog;
     CardView cvMonitor,cvControl,cvMetode,cvHelp;
-    TextView textViewTemp,textViewHMD,textViewTumbuhan,textViewPompaA,textViewPompaB;
+    TextView textViewTemp,textViewHMD,textViewTumbuhan,textViewPompaA,textViewPompaB,nilai1,nilai2;
     private FirebaseAuth firebaseAuth;
     private SessionManager session;
     private ProgressDialog pDialog;
@@ -73,9 +77,15 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
     List<String> list1;
     Switch switchA,switchB;
     SliderLayout sliderLayout;
+    String dataTerpilih;
+    SharedPreferences mSettings;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+         mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = mSettings.edit();
+        editor.apply();
         setTitle("");
         database1 = FirebaseDatabase.getInstance().getReference();
         pDialog = new ProgressDialog(this);
@@ -85,7 +95,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_drawer);
         spinner = findViewById(R.id.lokasiSpinner);
-        fotoTumbuhan = (ImageView) findViewById(R.id.foto2);
+        fotoTumbuhan = (ImageView) findViewById(R.id.fotoTumbuhan);
         cvMonitor=findViewById(R.id.cvMonitor);
         cvControl=findViewById(R.id.cvControl);
         cvMetode=findViewById(R.id.cvMetode);
@@ -98,8 +108,6 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         refPompaAisLoading = refPompaA.child("isLoading");
         refPompaBisLoading = refPompaB.child("isLoading");
 
-//        controlPompaA(refStatusPompaA);
-//        controlPompaB(refStatusPompsB);
 
         startService(new Intent(getApplicationContext(), MyService.class));
         sliderLayout = findViewById(R.id.imageSlider);
@@ -114,6 +122,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 mPlant mPlantTerpilih=listmPlant.get(i);
                 mPlant pl =  new mPlant(mPlantTerpilih.name, mPlantTerpilih.firstValue, mPlantTerpilih.secondValue
                         ,mPlantTerpilih.uid, mPlantTerpilih.url);
+                editor.putString("nama",mPlantTerpilih.name );
+                editor.apply();
                 database1.child("pilihTumbuhan").setValue(pl);
                 Toast.makeText(UserActivityDrawer.this,"Tumbuhan terpilih adalah "+mPlantTerpilih.name, Toast.LENGTH_SHORT).show();
 
@@ -128,7 +138,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
-                        ControlNutrisiActivity.class);
+                        MonitoringActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
@@ -138,13 +148,33 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
-                        ActivityMonitorGreenHouse.class);
+                        ControllingActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
             }
         });
 
+        cvMetode.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        MetodeActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+            }
+        });
+        cvHelp.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        GraphAvtivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+            }
+        });
         databaseReference = FirebaseDatabase.getInstance().getReference().child("plant");
         databaseLog = FirebaseDatabase.getInstance().getReference().child("log");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -167,20 +197,20 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
         refTumbuhan = database.getReference("pilihTumbuhan");
         refNama = refTumbuhan.child("name");
+//        DatabaseReference namanya = Datab.child("pi")
         refUrl = refTumbuhan.child("url");
+        refNutrisi1 = refTumbuhan.child("firstValue");
+        refNutrisi2 =refTumbuhan.child("secondValue");
 
 
 
 
-
-        textViewTemp = (TextView) findViewById(R.id.tvPH);
-        textViewHMD = (TextView) findViewById(R.id.nilai2);
+         nilai1 = (TextView) findViewById(R.id.nilaiPH);
+         nilai2 = (TextView) findViewById(R.id.nilai2);
         textViewPompaA = findViewById(R.id.tvTumbuhan);
         textViewPompaB = findViewById(R.id.tvMetode);
         textViewTumbuhan = findViewById(R.id.tvMonitoring);
-        monitorTumbuhan(refNama,refUrl,textViewTumbuhan);
-        monitorTemperature(refTemp, textViewTemp);
-        monitorHMD(refHmd,textViewHMD);
+        monitorTumbuhan(refNama,refUrl,refNutrisi1,refNutrisi2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -206,49 +236,12 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
 
 
-    private void controlPompaA(final DatabaseReference refStatusPompaA) {
-        refStatusPompaA.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Boolean nyala = (Boolean) dataSnapshot.getValue();
-                if (nyala){
-                    textViewPompaA.setText("Nyala");
-                }else{
-                    textViewPompaA.setText("Mati");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
-    private void controlPompaB(final DatabaseReference refStatusPompsB) {
-        refStatusPompsB.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Boolean nyala = (Boolean) dataSnapshot.getValue();
-                if (nyala) {
-                    textViewPompaB.setText("Nyala");
-                } else {
-                    textViewPompaB.setText("Mati");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
 
 
 
-    private void monitorTumbuhan(final DatabaseReference refTumbuhanPilihan,final DatabaseReference refUrl, final TextView textViewTumbuhan) {
+
+    private void monitorTumbuhan(final DatabaseReference refTumbuhanPilihan,final DatabaseReference refUrl,final DatabaseReference refNutrisi1,final DatabaseReference refNutrisi2) {
         showDialog();
         refTumbuhanPilihan.addValueEventListener(new ValueEventListener() {
             @Override
@@ -265,7 +258,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         refUrl.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshott) {
-                Glide.with(getApplicationContext()).load(dataSnapshott.getValue()).placeholder(R.drawable.loading).apply(RequestOptions.circleCropTransform()).into(fotoTumbuhan);
+                Glide.with(getApplicationContext()).load(dataSnapshott.getValue()).placeholder(R.drawable.nophotos).apply(RequestOptions.circleCropTransform()).into(fotoTumbuhan);
             }
 
             @Override
@@ -273,33 +266,31 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             }
         });
-    }
-    private void monitorTemperature(final DatabaseReference refTemp_, final TextView textViewTemp) {
-        refTemp_.addValueEventListener(new ValueEventListener() {
+        refNutrisi1.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Double temp = (Double) dataSnapshot.getValue();
-                textViewTemp.setText(dataSnapshot.getValue().toString() + " C");
-                Log.d("UserActivityDrawer_155",dataSnapshot.getValue().toString());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nilai1.setText(dataSnapshot.getValue()+"");
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    }
-    private void monitorHMD(final DatabaseReference refHmd_, final TextView textViewHMD) {
-        refHmd_.addValueEventListener(new ValueEventListener() {
+            }
+        });
+        refNutrisi2.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                textViewHMD.setText(dataSnapshot.getValue() + " %");
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nilai2.setText(dataSnapshot.getValue()+" PPM");
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
 
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -320,11 +311,27 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             public void onDataChange(DataSnapshot dataSnapshot) {
                 list1.clear();
                 listmPlant.clear();
+                int i=0;
                 for (DataSnapshot plant : dataSnapshot.getChildren()) {
                     mPlant lP = plant.getValue(mPlant.class);
                     listmPlant.add(lP);
                     list1.add(lP.getName().toString());
                     adapterPlant.notifyDataSetChanged();
+                   Log.d("Bili1",refNama.toString());
+
+
+                    String cookieName = mSettings.getString("nama", "Sawi Pakcoy");
+
+                    Toast.makeText(UserActivityDrawer.this, cookieName, Toast.LENGTH_SHORT).show();
+                    Log.d("Bili2",cookieName);
+                    Log.d("Billi3",lP.getName());
+
+                    if (lP.getName().equals(cookieName)){
+                        spinner.setSelection(i);
+                        Log.d("Billi3",String.valueOf(i));
+                    }
+
+                    i++;
                 }
                 hideDialog();
             }
@@ -423,11 +430,11 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 startActivity(g);
                 break;
             case R.id.controlling:
-                Intent j = new Intent(UserActivityDrawer.this, ControlAirActivity.class);
+                Intent j = new Intent(UserActivityDrawer.this, ControllingActivity.class);
                 startActivity(j);
                 break;
             case R.id.monitoring:
-                Intent o = new Intent(UserActivityDrawer.this, ControlNutrisiActivity.class);
+                Intent o = new Intent(UserActivityDrawer.this, MonitoringActivity.class);
                 startActivity(o);
                 break;
             case R.id.greenHouse:
@@ -435,7 +442,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 startActivity(k);
                 break;
             case R.id.hidroPonik:
-                Intent l = new Intent(UserActivityDrawer.this, ControlNutrisiActivity.class);
+                Intent l = new Intent(UserActivityDrawer.this, MonitoringActivity.class);
                 startActivity(l);
                 break;
             case R.id.metod:
@@ -443,7 +450,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 startActivity(n);
                 break;
             case R.id.aboout:
-                Intent m = new Intent(UserActivityDrawer.this, ControlNutrisiActivity.class);
+                Intent m = new Intent(UserActivityDrawer.this, MonitoringActivity.class);
                 startActivity(m);
                 break;
 

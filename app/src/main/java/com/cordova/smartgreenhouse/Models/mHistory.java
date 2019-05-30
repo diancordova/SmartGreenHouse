@@ -1,7 +1,8 @@
 package com.cordova.smartgreenhouse.Models;
 
 public class mHistory {
-    public String tanggal,waktu,nutrisi,ph,suhu;
+    public String tanggal,waktu;
+    public int nutrisi,ph,suhu;
 
 
 
@@ -13,27 +14,27 @@ public class mHistory {
         this.waktu = waktu;
     }
 
-    public String getNutrisi() {
+    public int getNutrisi() {
         return nutrisi;
     }
 
-    public void setNutrisi(String nutrisi) {
+    public void setNutrisi(int nutrisi) {
         this.nutrisi = nutrisi;
     }
 
-    public String getPh() {
+    public int getPh() {
         return ph;
     }
 
-    public void setPh(String ph) {
+    public void setPh(int ph) {
         this.ph = ph;
     }
 
-    public String getSuhu() {
+    public int getSuhu() {
         return suhu;
     }
 
-    public void setSuhu(String suhu) {
+    public void setSuhu(int suhu) {
         this.suhu = suhu;
     }
 
@@ -45,7 +46,7 @@ public class mHistory {
         this.tanggal = tanggal;
     }
 
-    public mHistory(String nutrisi, String ph, String suhu, String tanggal,String waktu) {
+    public mHistory(int nutrisi, int ph, int suhu, String tanggal,String waktu) {
         this.nutrisi = nutrisi;
         this.ph = ph;
         this.suhu = suhu;
