@@ -232,7 +232,7 @@
                         android:text="Nyala"
                         android:textColor="@color/colorPrimaryBlue"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"  />
 
                 </LinearLayout>
 
