@@ -34,7 +34,7 @@
                     android:id="@+id/tvMonitoring"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tumbuhan"
+                    android:text="Sawi Pakcoy"
                     android:textAlignment="center"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -55,9 +55,15 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTumbuhan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="Tumbuhan yang anda Pilih" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -76,7 +82,7 @@
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="000PPM" />
+                                android:text="1800ppm" />
 
                             <TextView
                                 android:id="@+id/textView19"
@@ -89,7 +95,7 @@
                                 android:id="@+id/nilaiPH"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="0 H" />
+                                android:text="7.3 H" />
 
                         </LinearLayout>
 
@@ -110,7 +116,7 @@
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="00'C" />
+                                android:text="32 'C" />
 
                             <TextView
                                 android:id="@+id/textView19"
@@ -123,7 +129,7 @@
                                 android:id="@+id/nilaiIntensitas"
                                 android:layout_width="50dp"
                                 android:layout_height="wrap_content"
-                                android:text="0000" />
+                                android:text="980" />
 
                         </LinearLayout>
 
@@ -137,58 +143,32 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-
-            <TextView
-                android:id="@+id/nilai2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Controlling "
-                android:textAlignment="center"
-                android:textColor="@color/Green"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            android:layout_margin="10dp"
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="70dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView12"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Controlling "
+                    android:textAlignment="center"
+                    android:textColor="@color/Green"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvMetode"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Pompa Air                      :"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <Switch
-                        android:id="@+id/switchAir"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp" />
-
-                    <TextView
-                        android:id="@+id/tvStatusAir"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:text="Status "
-                        android:textColor="@color/colorPrimaryBlue"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                <Spinner
+                    android:id="@+id/spinnerAuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownSelector="@color/colorAccent"
+                    android:spinnerMode="dropdown" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -205,18 +185,51 @@
                         android:textStyle="bold" />
 
                     <Switch
-                        android:id="@+id/switchNutrisi"
+                        android:id="@+id/switch1"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="20dp" />
 
                     <TextView
-                        android:id="@+id/tvStatusNutrisi"
+                        android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:text="Status "
+                        android:text="Mati"
+                        android:textColor="@color/colorPrimaryBlue"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvMetode"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="Pompa Air                      :"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/switch1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp" />
+
+                    <TextView
+                        android:id="@+id/nilai2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:text="Nyala"
                         android:textColor="@color/colorPrimaryBlue"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -244,12 +257,12 @@
                         android:layout_marginStart="20dp" />
 
                     <TextView
-                        android:id="@+id/tvStatusUltraviolet"
+                        android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:text="Status "
+                        android:text="Mati"
                         android:textColor="@color/colorPrimaryBlue"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -277,18 +290,20 @@
                         android:layout_marginStart="20sp" />
 
                     <TextView
-                        android:id="@+id/tvStatusSpringkler"
+                        android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:text="Status "
+                        android:text="Nyala"
                         android:textColor="@color/colorPrimaryBlue"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
     </LinearLayout>
 </ScrollView>

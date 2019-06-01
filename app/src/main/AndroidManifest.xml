@@ -27,11 +27,11 @@
         <activity
             android:name=".Activity.SplashScreen"
             android:theme="@style/SplashScreenStyle">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.ActivityMonitorGreenHouse" />
@@ -47,7 +47,13 @@
         <activity android:name=".Activity.EditPlant" />
         <activity
             android:name=".Activity.ControllingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.MonitoringActivity"
             android:theme="@style/AppTheme.NoActionBar" />
