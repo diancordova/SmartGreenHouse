@@ -8,11 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControllingActivity extends AppCompatActivity {
@@ -37,7 +41,7 @@ public class ControllingActivity extends AppCompatActivity {
     DatabaseReference refHome1 = database.getReference("control");
     DatabaseReference refDHT, refTemp, refHmd,refPhotoDioda,refTumbuhan,refStatus,refStatusAir,
             refUrl,refStatusLampuUV,refStatusPhotoDioda,refLampuUV,refSpringkle,refStatusSprinkle,
-            refAir,refNutrisii,refStatusManual,refStatusNutrisi,refUV,refDioda,refName,refIsLoading,refIsLoading1,refNilaiPhotoDioda,refPH,refNilaiPh,refStatusPH,refNutrisi,refNilaiNutrisi,refNilaiSuhu;
+            refAir, refNutrisii, refStatusManual, refManual, refStatusNutrisi, refUV, refDioda, refName, refIsLoading, refIsLoading1, refNilaiPhotoDioda, refPH, refNilaiPh, refStatusPH, refNutrisi, refNilaiNutrisi, refNilaiSuhu;
     private ProgressDialog pDialog;
     Switch switchOnOffUV,switchOnOffSprinkle,switchOnOffAir,switchOnOffNutrisi;
     TextView tvNilaiSuhu,tvNilaiIntenstitas,tvNilaiPH,tvNilaiNutrisi;
@@ -48,7 +52,9 @@ public class ControllingActivity extends AppCompatActivity {
     private String temperature_,humadity;
     private SQLiteHandler db;
     private ArrayAdapter<String> adapterPlant;
+    Spinner spinnerAuto;
     List<String> list1;
+    private ArrayAdapter<String> adapterAuto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +93,10 @@ public class ControllingActivity extends AppCompatActivity {
         refTumbuhan = database.getReference("pilihTumbuhan");
         refUrl = refTumbuhan.child("url");
         refName = refTumbuhan.child("name");
+        refManual = refHome1.child("manual");
+        refStatusManual = refManual.child("status");
+
+
 
         //------------NILAI DATA FIREBASE DARI SENSOR PH-----------//
         refPH = refHome.child("ph");
@@ -115,9 +125,23 @@ public class ControllingActivity extends AppCompatActivity {
         switchOnOffUV = findViewById(R.id.switchUltraviolet);
         switchOnOffSprinkle = findViewById(R.id.switchSpringkler);
 
+        list1 = new ArrayList<String>();
+        spinnerAuto = findViewById(R.id.spinnerAuto);
+        adapterAuto = new ArrayAdapter<String>(getBaseContext(),
+                android.R.layout.simple_spinner_item, list1);
+        spinnerAuto.setAdapter(adapterAuto);
+
+        list1.add("Automatis");
+        list1.add("Manual");
+        adapterAuto.notifyDataSetChanged();
+        adapterAuto.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+//        Toast.makeText(this, refStatusManual.getK, Toast.LENGTH_SHORT).show();
+//        if(refStatusManual.equals(true)){spinnerAuto.setSelection(1);}
+//        else{spinnerAuto.setSelection(0);}
 
 
-        monitoring(refNilaiNutrisi, tvNilaiNutrisi,refNilaiSuhu,tvNilaiSuhu,refNilaiPh,tvNilaiPH,refNilaiPhotoDioda,tvNilaiIntenstitas);
+        monitoring(refNilaiNutrisi, tvNilaiNutrisi, refNilaiSuhu, tvNilaiSuhu, refNilaiPh, tvNilaiPH, refNilaiPhotoDioda, tvNilaiIntenstitas, refStatusManual);
         monitorTumbuhan(refUrl,refName,tvMonitoring);
         controlling(refStatusAir,switchOnOffAir,textViewStatusAir,
                 refStatusNutrisi,switchOnOffNutrisi,textViewStatusNutrisi,
@@ -334,7 +358,7 @@ public class ControllingActivity extends AppCompatActivity {
         });
     }
 
-    private void monitoring(DatabaseReference refNilaiNutrisi, final TextView tvNilaiNutrisi, DatabaseReference refNilaiSuhu, final TextView tvNilaiSuhu, DatabaseReference refNilaiPh, final TextView tvNilaiPH, DatabaseReference refNilaiPhotoDioda, final TextView tvNilaiIntenstitas) {
+    private void monitoring(DatabaseReference refNilaiNutrisi, final TextView tvNilaiNutrisi, DatabaseReference refNilaiSuhu, final TextView tvNilaiSuhu, DatabaseReference refNilaiPh, final TextView tvNilaiPH, DatabaseReference refNilaiPhotoDioda, final TextView tvNilaiIntenstitas, final DatabaseReference refStatusManual) {
         showDialog();
         refNilaiNutrisi.addValueEventListener(new ValueEventListener() {
             @Override
@@ -378,7 +402,45 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
+        refStatusManual.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                hideDialog();
+//                tvNilaiNutrisi.setText(dataSnapshot.getValue() + " PPM");
+                if (dataSnapshot.getValue().equals(true)) {
+                    spinnerAuto.setSelection(1);
+                } else {
+                    spinnerAuto.setSelection(0);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        spinnerAuto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                if (position == 0) {
+                    //auto
+                    refStatusManual.setValue(false);
+
+                } else {
+                    //manual
+                    refStatusManual.setValue(true);
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
     }
 
 
