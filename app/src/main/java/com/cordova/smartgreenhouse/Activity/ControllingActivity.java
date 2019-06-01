@@ -3,33 +3,28 @@ package com.cordova.smartgreenhouse.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.cordova.smartgreenhouse.Controller.SQLiteHandler;
 import com.cordova.smartgreenhouse.Controller.SessionManager;
 import com.cordova.smartgreenhouse.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 
@@ -103,10 +98,10 @@ public class ControllingActivity extends AppCompatActivity {
 
 
         //Inisialisasi object TextView
-        tvNilaiSuhu = (TextView) findViewById(R.id.nilaiSuhu);
-        tvNilaiIntenstitas = (TextView) findViewById(R.id.nilaiIntensitas);
-        tvNilaiPH = (TextView) findViewById(R.id.nilaiPH);
-        tvNilaiNutrisi = (TextView) findViewById(R.id.nilaiNutrisi);
+        tvNilaiSuhu = findViewById(R.id.nilaiSuhu);
+        tvNilaiIntenstitas = findViewById(R.id.nilaiIntensitas);
+        tvNilaiPH = findViewById(R.id.nilaiPH);
+        tvNilaiNutrisi = findViewById(R.id.nilaiNutrisi);
         textViewStatusAir =findViewById(R.id.tvStatusAir);
         textViewStatusNutrisi =findViewById(R.id.tvStatusNutrisi);
         textViewStatusUV =findViewById(R.id.tvStatusUltraviolet);
