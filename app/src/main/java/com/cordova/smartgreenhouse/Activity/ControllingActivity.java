@@ -419,6 +419,7 @@ public class ControllingActivity extends AppCompatActivity {
 
     private void showDialog() {
         if (!pDialog.isShowing())
+            pDialog.setMessage("Loading ....");
             pDialog.show();
     }
 
