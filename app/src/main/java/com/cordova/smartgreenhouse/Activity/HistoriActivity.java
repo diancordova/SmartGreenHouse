@@ -2,9 +2,9 @@ package com.cordova.smartgreenhouse.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -57,11 +57,10 @@ public class HistoriActivity extends AppCompatActivity {
 
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setMinX(1);
-        graphView.getViewport().setMaxX(10);
+        graphView.getViewport().setMaxX(20);
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(300);
-        graphView.getViewport().setMaxY(2000);
-
+        graphView.getViewport().setMaxY(3000);
         graphView.getViewport().setScalable(true);
 
         listHistory = new ArrayList<>();
@@ -70,9 +69,7 @@ public class HistoriActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(layoutManager);
         DataCalling();
-
         mRecycleView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecycleView, new ClickListener() {
-
             @Override
             public void onClick(View view, int position) {
 
@@ -97,9 +94,10 @@ public class HistoriActivity extends AppCompatActivity {
                 DataPoint[] dp=new DataPoint[(int) dataSnapshot.getChildrenCount()];
                 int index=0;
 
+
                 for (DataSnapshot myDataSnapshot : dataSnapshot.getChildren()){
                     History history = myDataSnapshot.getValue(History.class);
-                    dp[index]=new DataPoint(history.getxValue(),history.getyValue());
+                    dp[index] = new DataPoint(index + 1, history.getyValue());
                     index++;
                 }
                 series.resetData(dp);

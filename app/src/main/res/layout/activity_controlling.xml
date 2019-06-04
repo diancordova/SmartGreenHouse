@@ -181,7 +181,7 @@
 
                         <TextView
                             android:id="@+id/tvMetode"
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pompa Air                      :"
                             android:textSize="18sp"
@@ -191,11 +191,12 @@
                             android:id="@+id/switchAir"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp" />
+                            android:layout_marginStart="20dp"
+                            android:enabled="true" />
 
                         <TextView
                             android:id="@+id/tvStatusAir"
-                            android:layout_width="wrap_content"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"
@@ -214,7 +215,7 @@
 
                         <TextView
                             android:id="@+id/tvPH"
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pompa Nutrisi                :"
                             android:textSize="18sp"
@@ -228,7 +229,7 @@
 
                         <TextView
                             android:id="@+id/tvStatusNutrisi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"
@@ -247,7 +248,7 @@
 
                         <TextView
                             android:id="@+id/textView7"
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Lampu Ultraviolet          :"
                             android:textSize="18sp"
@@ -261,7 +262,7 @@
 
                         <TextView
                             android:id="@+id/tvStatusUltraviolet"
-                            android:layout_width="wrap_content"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"
@@ -280,7 +281,7 @@
 
                         <TextView
                             android:id="@+id/textView7"
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Sprinkler                         :"
                             android:textSize="18sp"
@@ -294,7 +295,7 @@
 
                         <TextView
                             android:id="@+id/tvStatusSpringkler"
-                            android:layout_width="wrap_content"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"

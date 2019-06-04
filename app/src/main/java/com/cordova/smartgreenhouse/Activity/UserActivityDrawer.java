@@ -1,29 +1,26 @@
 package com.cordova.smartgreenhouse.Activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
-
-
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -38,14 +35,13 @@ import com.cordova.smartgreenhouse.Controller.SQLiteHandler;
 import com.cordova.smartgreenhouse.Controller.SessionManager;
 import com.cordova.smartgreenhouse.Models.mPlant;
 import com.cordova.smartgreenhouse.MyService;
+import com.cordova.smartgreenhouse.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import com.cordova.smartgreenhouse.R;
 import com.smarteist.autoimageslider.DefaultSliderView;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -95,7 +91,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_drawer);
         spinner = findViewById(R.id.lokasiSpinner);
-        fotoTumbuhan = (ImageView) findViewById(R.id.fotoTumbuhan);
+        fotoTumbuhan = findViewById(R.id.fotoTumbuhan);
         cvMonitor=findViewById(R.id.cvMonitor);
         cvControl=findViewById(R.id.cvControl);
         cvMetode=findViewById(R.id.cvMetode);
@@ -203,18 +199,16 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         refNutrisi2 =refTumbuhan.child("secondValue");
 
 
-
-
-         nilai1 = (TextView) findViewById(R.id.nilaiPH);
-         nilai2 = (TextView) findViewById(R.id.nilai2);
+        nilai1 = findViewById(R.id.nilaiPH);
+        nilai2 = findViewById(R.id.nilai2);
         textViewPompaA = findViewById(R.id.tvTumbuhan);
         textViewPompaB = findViewById(R.id.tvMetode);
         textViewTumbuhan = findViewById(R.id.tvMonitoring);
         monitorTumbuhan(refNama,refUrl,refNutrisi1,refNutrisi2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,13 +217,13 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -293,7 +287,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -315,20 +309,16 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 for (DataSnapshot plant : dataSnapshot.getChildren()) {
                     mPlant lP = plant.getValue(mPlant.class);
                     listmPlant.add(lP);
-                    list1.add(lP.getName().toString());
+                    list1.add(lP.getName());
                     adapterPlant.notifyDataSetChanged();
-                   Log.d("Bili1",refNama.toString());
-
 
                     String cookieName = mSettings.getString("nama", "Sawi Pakcoy");
 
-                    Toast.makeText(UserActivityDrawer.this, cookieName, Toast.LENGTH_SHORT).show();
-                    Log.d("Bili2",cookieName);
-                    Log.d("Billi3",lP.getName());
+                    Log.d("tumbuhan", cookieName);
 
                     if (lP.getName().equals(cookieName)){
                         spinner.setSelection(i);
-                        Log.d("Billi3",String.valueOf(i));
+
                     }
 
                     i++;
@@ -458,7 +448,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 KonfirmasiLogout();
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

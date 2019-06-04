@@ -9,8 +9,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cordova.smartgreenhouse.Activity.ActivityMonitorGreenHouse;
 import com.google.firebase.database.DataSnapshot;
@@ -22,16 +20,23 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MyService extends Service {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference refHome = database.getReference("sensor");
-    DatabaseReference refLampuUV,refStatusLampuUV;
+    DatabaseReference refHome = database.getReference("control");
+    DatabaseReference refLampuUV, refStatusLampuUV, refAir, refStatusAir, refSprinkler, refStatusSpringkler, refNutrisi, refStatusNutrisi;
     private NotificationManager notificationManager;
 
     @Override
     public void onCreate() {
-        refLampuUV = refHome.child("relay");
+        refLampuUV = refHome.child("relayLampuUV");
         refStatusLampuUV = refLampuUV.child("status");
+        refAir = refHome.child("relayPompaAir");
+        refStatusAir = refAir.child("status");
+        refSprinkler = refHome.child("relaySpringkler");
+        refStatusSpringkler = refSprinkler.child("status");
+        refNutrisi = refHome.child("relayPompaA");
+        refStatusNutrisi = refNutrisi.child("status");
+
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        monitorIntesitas(refStatusLampuUV);
+        monitorNotifikasi(refStatusAir, refStatusNutrisi, refStatusLampuUV, refStatusSpringkler);
 
     }
 
@@ -45,10 +50,13 @@ public class MyService extends Service {
     }
 
 
-    public void tampilNotification() {
+    public void tampilNotification(String keterangan) {
         Uri suaraNotif = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(getApplicationContext(), ActivityMonitorGreenHouse.class);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo)
@@ -57,7 +65,7 @@ public class MyService extends Service {
                 .setAutoCancel(true)
                 .setColor(12)
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                .setContentText("Pompa Nutrisi A Menyala");
+                .setContentText(keterangan + " Menyala");
 
         builder.setOngoing(false);
         builder.setSound(suaraNotif);
@@ -67,17 +75,21 @@ public class MyService extends Service {
         );
 
     }
-    private void monitorIntesitas(final DatabaseReference refStatusPhotoDioda_ ) {
 
-        refStatusPhotoDioda_.addValueEventListener(new ValueEventListener() {
+    private void monitorNotifikasi(DatabaseReference refStatusAir, DatabaseReference refStatusNutrisi, DatabaseReference refStatusLampuUV, final DatabaseReference refStatusSpringkler) {
+
+        refStatusAir.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Boolean menyala = false;
-                for (DataSnapshot refStatusPhotoDioda_ : dataSnapshot.getChildren()){}
+                for (DataSnapshot refStatusAir : dataSnapshot.getChildren()) {
+                }
                 menyala  = (Boolean) dataSnapshot.getValue();
+
                 if(menyala){
-                    tampilNotification();
+                    String keterangan = "Pompa Air";
+                    tampilNotification(keterangan);
                 }else{
 
                 }
@@ -85,6 +97,72 @@ public class MyService extends Service {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) { }
+        });
+        refStatusNutrisi.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Boolean menyala = false;
+                for (DataSnapshot refStatusNutrisi : dataSnapshot.getChildren()) {
+                }
+                menyala = (Boolean) dataSnapshot.getValue();
+
+                if (menyala) {
+                    String keterangan = "Pompa Nutrisi";
+                    tampilNotification(keterangan);
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        refStatusLampuUV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Boolean menyala = false;
+                for (DataSnapshot refStatusLampuUV : dataSnapshot.getChildren()) {
+                }
+                menyala = (Boolean) dataSnapshot.getValue();
+
+                if (menyala) {
+                    String keterangan = "Lampu UV";
+                    tampilNotification(keterangan);
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        refStatusSpringkler.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Boolean menyala = false;
+                for (DataSnapshot refStatusSpringkler : dataSnapshot.getChildren()) {
+                }
+                menyala = (Boolean) dataSnapshot.getValue();
+
+                if (menyala) {
+                    String keterangan = "Springkler";
+                    tampilNotification(keterangan);
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
     }
 

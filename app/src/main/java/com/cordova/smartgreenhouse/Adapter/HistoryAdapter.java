@@ -33,7 +33,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Integer posisi = position + 1;
         mHistory data = modelList.get(position);
+        holder.nomor.setText(posisi.toString());
         holder.tanggal.setText(data.getTanggal());
         holder.waktu.setText(data.getWaktu());
         holder.nutrisi.setText( Integer.toString(data.getNutrisi()));
@@ -51,14 +53,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tanggal,waktu,nutrisi,ph,suhu;
+        public TextView tanggal, waktu, nutrisi, ph, suhu, nomor;
         public ViewHolder(View itemView) {
             super(itemView);
-            tanggal = (TextView) itemView.findViewById(R.id.nameP);
-            waktu = (TextView) itemView.findViewById(R.id.nilaiPH);
-            nutrisi = (TextView) itemView.findViewById(R.id.text);
-            ph = (TextView) itemView.findViewById(R.id.nilai2);
-            suhu = (TextView) itemView.findViewById(R.id.value);
+            nomor = itemView.findViewById(R.id.nomor);
+            tanggal = itemView.findViewById(R.id.nameP);
+            waktu = itemView.findViewById(R.id.nilaiPH);
+            nutrisi = itemView.findViewById(R.id.text);
+            ph = itemView.findViewById(R.id.nilai2);
+            suhu = itemView.findViewById(R.id.value);
         }
     }
 }
