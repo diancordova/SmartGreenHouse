@@ -7,9 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,6 +62,7 @@ public class ControllingActivity extends AppCompatActivity {
     List<String> list1;
     private ArrayAdapter<String> adapterAuto;
     SharedPreferences mSettings;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +118,15 @@ public class ControllingActivity extends AppCompatActivity {
 
 
         //Inisialisasi object TextView
+        //  appbar=(AppBarLayout)findViewById(R.id.appbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_nav_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         tvNilaiSuhu = findViewById(R.id.nilaiSuhu);
         tvNilaiIntenstitas = findViewById(R.id.nilaiIntensitas);
         tvNilaiPH = findViewById(R.id.nilaiPH);
@@ -151,7 +164,29 @@ public class ControllingActivity extends AppCompatActivity {
                 refStatusLampuUV,switchOnOffUV,textViewStatusUV,
                 refStatusSprinkle,switchOnOffSprinkle,textViewStatusSprinkle);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        status();
+    }
 
+    public void status() {
+        refStatusManual.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                int i = 0;
+//                Log.d("cordovani", dataSnapshot.getValue().toString());
+
+                if (dataSnapshot.getValue().toString() == "true") {
+                    spinnerAuto.setSelection(1);
+                } else {
+                    spinnerAuto.setSelection(0);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void controlling(final DatabaseReference refStatusAir, final Switch switchOnOffAir, final TextView textViewStatusAir, final DatabaseReference refStatusNutrisi, final Switch switchOnOffNutrisi, final TextView textViewStatusNutrisi, final DatabaseReference refStatusLampuUV, final Switch switchOnOffUV, final TextView textViewStatusUV, final DatabaseReference refStatusSprinkle, final Switch switchOnOffSprinkle, final TextView textViewStatusSprinkle) {
@@ -431,30 +466,30 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
-        refStatusManual.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int i = 0;
-                for (DataSnapshot plant : dataSnapshot.getChildren()) {
-                    int cookieMode = mSettings.getInt("cordovani", 0);
-                    Log.d("cordovani", String.valueOf(cookieMode));
-
-                    if (dataSnapshot.getValue().equals(cookieMode)) {
-                        spinnerAuto.setSelection(i);
-
-
-                    }
-
-                    i++;
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        refStatusManual.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                int i = 0;
+//                for (DataSnapshot plant : dataSnapshot.getChildren()) {
+//                    int cookieMode = mSettings.getInt("cordovani", 0);
+//                    Log.d("cordovani", String.valueOf(cookieMode));
+//
+//                    if (dataSnapshot.getValue().equals(cookieMode)) {
+//                        spinnerAuto.setSelection(i);
+//
+//
+//                    }
+//
+//                    i++;
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
         spinnerAuto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -516,5 +551,16 @@ public class ControllingActivity extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                Log.d("tutup", "tutup");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
