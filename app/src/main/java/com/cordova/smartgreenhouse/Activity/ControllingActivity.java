@@ -159,10 +159,7 @@ public class ControllingActivity extends AppCompatActivity {
 
         monitoring(refNilaiNutrisi, tvNilaiNutrisi, refNilaiSuhu, tvNilaiSuhu, refNilaiPh, tvNilaiPH, refNilaiPhotoDioda, tvNilaiIntenstitas, refStatusManual);
         monitorTumbuhan(refUrl, refName);
-        controlling(refStatusAir,switchOnOffAir,textViewStatusAir,
-                refStatusNutrisi,switchOnOffNutrisi,textViewStatusNutrisi,
-                refStatusLampuUV,switchOnOffUV,textViewStatusUV,
-                refStatusSprinkle,switchOnOffSprinkle,textViewStatusSprinkle);
+
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         status();
     }
@@ -171,9 +168,6 @@ public class ControllingActivity extends AppCompatActivity {
         refStatusManual.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                int i = 0;
-//                Log.d("cordovani", dataSnapshot.getValue().toString());
-
                 if (dataSnapshot.getValue().toString() == "true") {
                     spinnerAuto.setSelection(1);
                 } else {
@@ -181,53 +175,11 @@ public class ControllingActivity extends AppCompatActivity {
                 }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-    }
-
-    private void controlling(final DatabaseReference refStatusAir, final Switch switchOnOffAir, final TextView textViewStatusAir, final DatabaseReference refStatusNutrisi, final Switch switchOnOffNutrisi, final TextView textViewStatusNutrisi, final DatabaseReference refStatusLampuUV, final Switch switchOnOffUV, final TextView textViewStatusUV, final DatabaseReference refStatusSprinkle, final Switch switchOnOffSprinkle, final TextView textViewStatusSprinkle) {
-
-
-        switchOnOffAir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (spinnerAuto.getSelectedItemPosition() == 0) {
-                    Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
-                    switchOnOffAir.setChecked(!switchOnOffAir.isChecked());
-                } else {
-                    switchOnOffAir.setChecked(switchOnOffAir.isChecked());
-                    refStatusAir.setValue(isChecked);
-                    if (isChecked) {
-                        textViewStatusAir.setText("Nyala");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffAir, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Pompa Air Menyala", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-
-                        snackbar.show();
-                    } else {
-                        textViewStatusAir.setText("Mati");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffUV, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Pompa Air Mati", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-
-                        snackbar.show();
-                    }
-                }
-                }
-        });
-        refStatusAir.addValueEventListener(new ValueEventListener() {
+        refStatusAir.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Boolean menyala = (Boolean) dataSnapshot.getValue();
@@ -236,10 +188,14 @@ public class ControllingActivity extends AppCompatActivity {
                     textViewStatusAir.setText("Nyala");
 
                 } else {
-
                     switchOnOffAir.setChecked(menyala);
                     textViewStatusAir.setText("Mati");
                 }
+//                controlling(refStatusAir,switchOnOffAir,textViewStatusAir,
+//                        refStatusNutrisi,switchOnOffNutrisi,textViewStatusNutrisi,
+//                        refStatusLampuUV,switchOnOffUV,textViewStatusUV,
+//                        refStatusSprinkle,switchOnOffSprinkle,textViewStatusSprinkle);
+                statusAir();
             }
 
             @Override
@@ -247,47 +203,11 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
-        switchOnOffNutrisi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (spinnerAuto.getSelectedItemPosition() == 0) {
-                    Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
-                    switchOnOffNutrisi.setChecked(!switchOnOffNutrisi.isChecked());
-                } else {
-                    switchOnOffNutrisi.setChecked(switchOnOffNutrisi.isChecked());
-                    refStatusNutrisi.setValue(isChecked);
-                    if (isChecked) {
-                        textViewStatusNutrisi.setText("Nyala");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffNutrisi, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Pompa Nutrisi Menyala", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-
-                        snackbar.show();
-                    } else {
-                        textViewStatusNutrisi.setText("Mati");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffNutrisi, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Pompa Nutrisi Mati", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-                        snackbar.show();
-                    }
-                }
-            }
-
-        });
-
-        refStatusNutrisi.addValueEventListener(new ValueEventListener() {
+        refStatusNutrisi.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean menyala  = (Boolean) dataSnapshot.getValue();
-                if(menyala){
+                Boolean menyala = (Boolean) dataSnapshot.getValue();
+                if (menyala) {
                     switchOnOffNutrisi.setChecked(menyala);
                     textViewStatusNutrisi.setText("Nyala");
 
@@ -303,50 +223,11 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
-        switchOnOffUV.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (spinnerAuto.getSelectedItemPosition() == 0) {
-                    Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
-                    switchOnOffUV.setChecked(!switchOnOffUV.isChecked());
-                } else {
-                    switchOnOffUV.setChecked(switchOnOffUV.isChecked());
-                    refStatusLampuUV.setValue(isChecked);
-                    if (isChecked) {
-                        textViewStatusUV.setText("Nyala");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffUV, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Lampu UV Menyala", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-
-                        snackbar.show();
-                    } else {
-                        textViewStatusUV.setText("Mati");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffUV, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Lampu UV Mati", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-
-                        snackbar.show();
-                    }
-                }
-            }
-
-
-
-        });
-
-        refStatusLampuUV.addValueEventListener(new ValueEventListener() {
+        refStatusLampuUV.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean menyala  = (Boolean) dataSnapshot.getValue();
-                if(menyala){
+                Boolean menyala = (Boolean) dataSnapshot.getValue();
+                if (menyala) {
                     switchOnOffUV.setChecked(menyala);
                     textViewStatusUV.setText("Nyala");
 
@@ -362,49 +243,11 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
-        switchOnOffSprinkle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (spinnerAuto.getSelectedItemPosition() == 0) {
-                    Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
-                    switchOnOffSprinkle.setChecked(!switchOnOffSprinkle.isChecked());
-                } else {
-                    switchOnOffSprinkle.setChecked(switchOnOffSprinkle.isChecked());
-                    refStatusSprinkle.setValue(isChecked);
-                    if (isChecked) {
-                        textViewStatusSprinkle.setText("Nyala");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffSprinkle, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Springkler Menyala", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-
-                        snackbar.show();
-                    } else {
-                        textViewStatusSprinkle.setText("Mati");
-                        Snackbar snackbar = Snackbar
-                                .make(switchOnOffSprinkle, "Informasi", Snackbar.LENGTH_LONG)
-                                .setAction("Springkler Mati", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-
-                        snackbar.show();
-                    }
-                }
-            }
-
-
-        });
-
-        refStatusSprinkle.addValueEventListener(new ValueEventListener() {
+        refStatusSprinkle.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean menyala  = (Boolean) dataSnapshot.getValue();
-                if(menyala){
+                Boolean menyala = (Boolean) dataSnapshot.getValue();
+                if (menyala) {
                     switchOnOffSprinkle.setChecked(menyala);
                     textViewStatusSprinkle.setText("Nyala");
 
@@ -420,6 +263,72 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void controlling(final DatabaseReference refStatusAir, final Switch switchOnOffAir, final TextView textViewStatusAir, final DatabaseReference refStatusNutrisi, final Switch switchOnOffNutrisi, final TextView textViewStatusNutrisi, final DatabaseReference refStatusLampuUV, final Switch switchOnOffUV, final TextView textViewStatusUV, final DatabaseReference refStatusSprinkle, final Switch switchOnOffSprinkle, final TextView textViewStatusSprinkle) {
+    }
+
+    void statusAir() {
+        refStatusAir.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean menyala = (Boolean) dataSnapshot.getValue();
+                switchOnOffAir.setOnCheckedChangeListener(null);
+                if (menyala) {
+                    switchOnOffAir.setChecked(menyala);
+                    textViewStatusAir.setText("Nyala");
+
+                } else {
+
+                    switchOnOffAir.setChecked(menyala);
+                    textViewStatusAir.setText("Mati");
+                }
+                switchOnOffAir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (spinnerAuto.getSelectedItemPosition() == 0) {
+                            Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
+                            switchOnOffAir.setChecked(!switchOnOffAir.isChecked());
+                        } else {
+                            switchOnOffAir.setChecked(switchOnOffAir.isChecked());
+                            refStatusAir.setValue(isChecked);
+                            if (isChecked) {
+                                textViewStatusAir.setText("Nyala");
+                                switchOnOffAir.setChecked(true);
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffAir, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Pompa Air Menyala", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+
+                                snackbar.show();
+                            } else {
+                                textViewStatusAir.setText("Mati");
+                                switchOnOffAir.setChecked(false);
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffUV, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Pompa Air Mati", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+
+                                snackbar.show();
+                            }
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void monitoring(DatabaseReference refNilaiNutrisi, final TextView tvNilaiNutrisi, DatabaseReference refNilaiSuhu, final TextView tvNilaiSuhu, DatabaseReference refNilaiPh, final TextView tvNilaiPH, DatabaseReference refNilaiPhotoDioda, final TextView tvNilaiIntenstitas, final DatabaseReference refStatusManual) {
@@ -466,30 +375,22 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
-//        refStatusManual.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                int i = 0;
-//                for (DataSnapshot plant : dataSnapshot.getChildren()) {
-//                    int cookieMode = mSettings.getInt("cordovani", 0);
-//                    Log.d("cordovani", String.valueOf(cookieMode));
-//
-//                    if (dataSnapshot.getValue().equals(cookieMode)) {
-//                        spinnerAuto.setSelection(i);
-//
-//
-//                    }
-//
-//                    i++;
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        refStatusManual.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("cordovaganteng", "ganti");
+                if (dataSnapshot.getValue().toString() == "true") {
+                    spinnerAuto.setSelection(1);
+                } else {
+                    spinnerAuto.setSelection(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         spinnerAuto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
