@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingLeft="20dp">
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:text="Monitoring dan Controlling Greenhouse  "
-                    android:textAlignment="textEnd"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textColorHint="#fff"
                     android:textSize="10sp"
@@ -134,12 +134,13 @@
                     android:ems="10"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingTop="20dp"
+                    android:paddingLeft="15dp"
                     android:paddingEnd="20dp"
-                    android:paddingRight="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
                     android:paddingBottom="20dp"
                     android:text="Studi Kasus Greenhouse Hidroponik"
-                    android:textAlignment="textStart"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textColorHint="#fff"
                     android:textSize="10sp" />
