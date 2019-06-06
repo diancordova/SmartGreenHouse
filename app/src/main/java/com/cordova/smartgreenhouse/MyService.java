@@ -1,19 +1,19 @@
 package com.cordova.smartgreenhouse;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
-import com.cordova.smartgreenhouse.Activity.ActivityMonitorGreenHouse;
+import com.cordova.smartgreenhouse.Activity.ControllingActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,45 +55,43 @@ public class MyService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void tampilNotification(String keterangan) {
-        Uri suaraNotif = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        String CHANNEL_ID = "my_channel_01";
-        Intent intent = new Intent(getApplicationContext(), ActivityMonitorGreenHouse.class);
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Notifikasi", importance);
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Intent mIntent = new Intent(this, ControllingActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("fromNotif", "iya");
+        mIntent.putExtras(bundle);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+        //Intent ii = new Intent(mContext.getApplicationContext(), RootActivity.class);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, ii, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.logo)
-                .setContentTitle("Notifikasi")
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .setColor(12)
-                .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                .setChannelId(CHANNEL_ID)
-                .setContentText(keterangan + " Menyala");
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText(keterangan + " Menyala ");
+        bigText.setBigContentTitle("Notifikasi Baru");
+//        bigText.setSummaryText(" Order Baru Tervalidasi");
 
-        builder.setOngoing(false);
-        builder.setSound(suaraNotif);
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.logo);
+        mBuilder.setContentTitle("Notifikasi Baru");
+        mBuilder.setContentText(keterangan + " Nyala");
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setStyle(bigText);
 
-        notificationManager.notify(1, builder.build()
-
-        );
         NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mNotificationManager.createNotificationChannel(mChannel);
+            NotificationChannel channel = new NotificationChannel("notify_001",
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            mNotificationManager.createNotificationChannel(channel);
         }
-        notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            notificationManager.createNotificationChannel(mChannel);
-//        }
 
-
+        mNotificationManager.notify(0, mBuilder.build());
     }
+
 
     private void monitorNotifikasi(DatabaseReference refStatusAir, DatabaseReference refStatusNutrisi, DatabaseReference refStatusLampuUV, final DatabaseReference refStatusSpringkler) {
 
