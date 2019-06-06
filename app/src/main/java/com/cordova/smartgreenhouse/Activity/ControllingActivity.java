@@ -216,6 +216,7 @@ public class ControllingActivity extends AppCompatActivity {
                     switchOnOffNutrisi.setChecked(menyala);
                     textViewStatusNutrisi.setText("Mati");
                 }
+                statusNutrisi();
             }
 
             @Override
@@ -236,6 +237,7 @@ public class ControllingActivity extends AppCompatActivity {
                     switchOnOffUV.setChecked(menyala);
                     textViewStatusUV.setText("Mati");
                 }
+                statusLampuUV();
             }
 
             @Override
@@ -256,6 +258,7 @@ public class ControllingActivity extends AppCompatActivity {
                     switchOnOffSprinkle.setChecked(menyala);
                     textViewStatusSprinkle.setText("Mati");
                 }
+                statusSprinkle();
             }
 
             @Override
@@ -329,6 +332,188 @@ public class ControllingActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    void statusNutrisi() {
+        refStatusNutrisi.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean menyala = (Boolean) dataSnapshot.getValue();
+                switchOnOffNutrisi.setOnCheckedChangeListener(null);
+                if (menyala) {
+                    switchOnOffNutrisi.setChecked(menyala);
+                    textViewStatusNutrisi.setText("Nyala");
+
+                } else {
+
+                    switchOnOffNutrisi.setChecked(menyala);
+                    textViewStatusNutrisi.setText("Mati");
+                }
+
+                switchOnOffNutrisi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (spinnerAuto.getSelectedItemPosition() == 0) {
+                            Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
+                            switchOnOffNutrisi.setChecked(!switchOnOffNutrisi.isChecked());
+                        } else {
+                            switchOnOffNutrisi.setChecked(switchOnOffNutrisi.isChecked());
+                            refStatusNutrisi.setValue(isChecked);
+                            if (isChecked) {
+                                textViewStatusNutrisi.setText("Nyala");
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffNutrisi, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Pompa Nutrisi Menyala", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+
+                                snackbar.show();
+                            } else {
+                                textViewStatusNutrisi.setText("Mati");
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffNutrisi, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Pompa Nutrisi Mati", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+                                snackbar.show();
+                            }
+                        }
+                    }
+
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void statusLampuUV() {
+        refStatusLampuUV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean menyala = (Boolean) dataSnapshot.getValue();
+                switchOnOffUV.setOnCheckedChangeListener(null);
+                if (menyala) {
+                    switchOnOffUV.setChecked(menyala);
+                    textViewStatusUV.setText("Nyala");
+
+                } else {
+
+                    switchOnOffUV.setChecked(menyala);
+                    textViewStatusUV.setText("Mati");
+                }
+                switchOnOffUV.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (spinnerAuto.getSelectedItemPosition() == 0) {
+                            Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
+                            switchOnOffUV.setChecked(!switchOnOffUV.isChecked());
+                        } else {
+                            switchOnOffUV.setChecked(switchOnOffUV.isChecked());
+                            refStatusLampuUV.setValue(isChecked);
+                            if (isChecked) {
+                                textViewStatusUV.setText("Nyala");
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffUV, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Lampu UV Menyala", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+
+                                snackbar.show();
+                            } else {
+                                textViewStatusUV.setText("Mati");
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffUV, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Lampu UV Mati", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+
+                                snackbar.show();
+                            }
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    void statusSprinkle() {
+        refStatusSprinkle.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean menyala = (Boolean) dataSnapshot.getValue();
+                switchOnOffSprinkle.setOnCheckedChangeListener(null);
+                if (menyala) {
+                    switchOnOffSprinkle.setChecked(menyala);
+                    textViewStatusSprinkle.setText("Nyala");
+
+                } else {
+
+                    switchOnOffSprinkle.setChecked(menyala);
+                    textViewStatusSprinkle.setText("Mati");
+                }
+                switchOnOffSprinkle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (spinnerAuto.getSelectedItemPosition() == 0) {
+                            Toast.makeText(ControllingActivity.this, "Mode Anda Harus Manual", Toast.LENGTH_SHORT).show();
+                            switchOnOffSprinkle.setChecked(!switchOnOffSprinkle.isChecked());
+                        } else {
+                            switchOnOffSprinkle.setChecked(switchOnOffSprinkle.isChecked());
+                            refStatusSprinkle.setValue(isChecked);
+                            if (isChecked) {
+                                textViewStatusSprinkle.setText("Nyala");
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffSprinkle, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Springkler Menyala", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+
+                                snackbar.show();
+                            } else {
+                                textViewStatusSprinkle.setText("Mati");
+                                Snackbar snackbar = Snackbar
+                                        .make(switchOnOffSprinkle, "Informasi", Snackbar.LENGTH_LONG)
+                                        .setAction("Springkler Mati", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                            }
+                                        });
+
+                                snackbar.show();
+                            }
+                        }
+                    }
+
+
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void monitoring(DatabaseReference refNilaiNutrisi, final TextView tvNilaiNutrisi, DatabaseReference refNilaiSuhu, final TextView tvNilaiSuhu, DatabaseReference refNilaiPh, final TextView tvNilaiPH, DatabaseReference refNilaiPhotoDioda, final TextView tvNilaiIntenstitas, final DatabaseReference refStatusManual) {
