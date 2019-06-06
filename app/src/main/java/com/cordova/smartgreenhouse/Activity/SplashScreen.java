@@ -1,9 +1,9 @@
 package com.cordova.smartgreenhouse.Activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.cordova.smartgreenhouse.R;
 
@@ -26,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(new Intent(SplashScreen.this,MainActivity.class));
                 finish();
             }
-        },2000);
+        }, 1000);
         return true;
     }
 

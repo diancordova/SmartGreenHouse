@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -29,14 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HistoriActivity extends AppCompatActivity {
+public class HistoriActivity<GraphView> extends AppCompatActivity {
     private static final String TAG = HistoriActivity.class.getSimpleName();
     private List<mHistory> listHistory;
     private RecyclerView mRecycleView;
     private RecyclerView.LayoutManager layoutManager;
     private HistoryAdapter historyAdapter;
-    DatabaseReference databaseReference;
-    GraphView graphView;
+    DatabaseReference databaseReference, nutrisi;
+    com.jjoe64.graphview.GraphView graphView;
     LineGraphSeries series;
     ProgressDialog pDialog;
 
@@ -111,7 +110,7 @@ public class HistoriActivity extends AppCompatActivity {
     }
 
     private void DataCalling() {
-        databaseReference.orderByChild("jam").addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByChild("id").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
