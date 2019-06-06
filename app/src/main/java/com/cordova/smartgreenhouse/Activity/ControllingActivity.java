@@ -168,11 +168,26 @@ public class ControllingActivity extends AppCompatActivity {
         refStatusManual.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("billigood", dataSnapshot.getValue().toString());
                 if (dataSnapshot.getValue().toString() == "true") {
                     spinnerAuto.setSelection(1);
                 } else {
                     spinnerAuto.setSelection(0);
                 }
+                spinnerAuto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        if (position == 0) {
+                            refStatusManual.setValue(false);
+                        } else {
+                            refStatusManual.setValue(true);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                    }
+                });
 
             }
             @Override
@@ -576,28 +591,7 @@ public class ControllingActivity extends AppCompatActivity {
 
             }
         });
-        spinnerAuto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // your code here
-                if (position == 0) {
-                    //auto
-                    refStatusManual.setValue(false);
 
-                } else {
-                    //manual
-                    refStatusManual.setValue(true);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
     }
 
 
