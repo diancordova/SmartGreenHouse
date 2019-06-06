@@ -1,5 +1,6 @@
 package com.cordova.smartgreenhouse;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -7,7 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
 import com.cordova.smartgreenhouse.Activity.ActivityMonitorGreenHouse;
@@ -50,9 +53,13 @@ public class MyService extends Service {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void tampilNotification(String keterangan) {
         Uri suaraNotif = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        String CHANNEL_ID = "my_channel_01";
         Intent intent = new Intent(getApplicationContext(), ActivityMonitorGreenHouse.class);
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Notifikasi", importance);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -65,6 +72,7 @@ public class MyService extends Service {
                 .setAutoCancel(true)
                 .setColor(12)
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                .setChannelId(CHANNEL_ID)
                 .setContentText(keterangan + " Menyala");
 
         builder.setOngoing(false);
@@ -73,6 +81,17 @@ public class MyService extends Service {
         notificationManager.notify(1, builder.build()
 
         );
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
+        notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            notificationManager.createNotificationChannel(mChannel);
+//        }
+
 
     }
 

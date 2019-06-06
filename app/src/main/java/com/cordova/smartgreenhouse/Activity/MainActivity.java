@@ -17,7 +17,6 @@ import com.cordova.smartgreenhouse.Controller.SessionManager;
 import com.cordova.smartgreenhouse.Models.mUser;
 import com.cordova.smartgreenhouse.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,11 +48,10 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("user");
         setTitle("Login User");
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
-        btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
+        inputEmail = findViewById(R.id.email);
+        inputPassword = findViewById(R.id.password);
+        btnLogin = findViewById(R.id.btnLogin);
+
 
 
         pDialog = new ProgressDialog(this);
@@ -71,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String email = inputEmail.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
+                String email = inputEmail.getText().toString();
+                String password = inputPassword.getText().toString();
                 boolean cancel = false;
                 View focusView = null;
 
@@ -103,15 +101,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
-                        RegisterActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+//        btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(),
+//                        RegisterActivity.class);
+//                startActivity(i);
+//                finish();
+//            }
+//        });
 
     }
 
