@@ -1,11 +1,12 @@
 package com.cordova.smartgreenhouse.Activity;
 
-import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,8 +31,8 @@ public class MonitoringActivity extends AppCompatActivity {
     private DatabaseReference database1;
     DatabaseReference refHome = database.getReference("sensor");
     DatabaseReference refMetode = database.getReference("metode");
-    DatabaseReference refPH,refNilaiPh,refTDS,refNilaiNutrisi,refWaterLevel,refNilaiWaterLevel,
-            refSuhuAir,refNilaiSuhuAir,refNutrisi,refStatusPH,refStatusNutrisi,refStatusWaterLevel,refStatusSuhuAir,refStatusMetode,refTumbuhan,
+    DatabaseReference refPH, refNilaiPh, refTDS, refNilaiNhisutrisi, refWaterLevel, refNilaiWaterLevel,
+            refSuhuAir, refNilaiSuhuAir, refNutrisi, refStatusPH, refStatusNutrisi, refStatusWaterLevel, refStatusSuhuAir, refStatusMetode, refTumbuhan, refNilaiNutrisi,
     refNama,refUrl,refNutrisi1,refNutrisi2;
     TextView textViewPH,textViewNutrisi,textViewWaterLevel,textViewTumbuhan,textViewSuhuAir,textViewTumbuhan1,
             textStatusPH,textStatusNutrisi,textStatusWaterLevel,textStatusSuhuAir,textViewNilai1,textViewNilai2;
@@ -42,6 +43,8 @@ public class MonitoringActivity extends AppCompatActivity {
     private SQLiteHandler db;
     private ArrayAdapter<String> adapterPlant;
     List<String> list1;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,11 @@ public class MonitoringActivity extends AppCompatActivity {
         refNilaiWaterLevel = refSuhuAir.child("humidity");
         refStatusSuhuAir = refSuhuAir.child("status");
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         refTumbuhan = database.getReference("pilihTumbuhan");
         refNama = refTumbuhan.child("name");
@@ -81,21 +89,21 @@ public class MonitoringActivity extends AppCompatActivity {
         refNutrisi2 =refTumbuhan.child("secondValue");
 
 
-        textViewPH = (TextView) findViewById(R.id.tvPh1);
-        textViewNutrisi = (TextView) findViewById(R.id.tvNutrisi1);
-        textViewWaterLevel = (TextView) findViewById(R.id.tvWaterLevel1);
-        textViewSuhuAir = (TextView) findViewById(R.id.tvSuhuAir1);
-        textViewTumbuhan= (TextView) findViewById(R.id.tvMonitoring);
-        textViewTumbuhan1= (TextView) findViewById(R.id.tvTumbuhan);
+        textViewPH = findViewById(R.id.tvPh1);
+        textViewNutrisi = findViewById(R.id.tvNutrisi1);
+        textViewWaterLevel = findViewById(R.id.tvWaterLevel1);
+        textViewSuhuAir = findViewById(R.id.tvSuhuAir1);
+        textViewTumbuhan = findViewById(R.id.tvMonitoring);
+        textViewTumbuhan1 = findViewById(R.id.tvTumbuhan);
         textViewNilai1 = findViewById(R.id.nilaiPH);
-        textViewNilai2 = findViewById(R.id.nilai2);
+        textViewNilai2 = findViewById(R.id.status);
         fotoTumbuhan2=findViewById(R.id.fotoTumbuhan);
 
 
-        textStatusPH = (TextView) findViewById(R.id.tvPH);
-        textStatusNutrisi = (TextView) findViewById(R.id.value1);
-        textStatusWaterLevel = (TextView) findViewById(R.id.tvWaterLevel);
-        textStatusSuhuAir = (TextView) findViewById(R.id.tvSuhuAir);
+        textStatusPH = findViewById(R.id.tvPH);
+        textStatusNutrisi = findViewById(R.id.value1);
+        textStatusWaterLevel = findViewById(R.id.tvWaterLevel);
+        textStatusSuhuAir = findViewById(R.id.tvSuhuAir);
 
 
 
@@ -325,5 +333,16 @@ public class MonitoringActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                Log.d("tutup", "tutup");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/data_plant"
-        android:icon="@drawable/ic_menu_send"
+        android:id="@+id/settings"
         android:orderInCategory="100"
-        android:title="Data Plant"
-       />
-    <item
-        android:id="@+id/history"
-        android:icon="@drawable/ic_menu_share"
-        android:orderInCategory="100"
-        android:title="Histori"
-       />
+        android:title="Setiings" />
     <item
         android:id="@+id/log_out"
         android:icon="@drawable/ic_menu_slideshow"

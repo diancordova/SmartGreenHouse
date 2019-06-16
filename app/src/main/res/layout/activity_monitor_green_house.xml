@@ -240,7 +240,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.763"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nilai2" />
+        app:layout_constraintTop_toBottomOf="@+id/status" />
 
     <TextView
         android:id="@+id/tvPH"
@@ -256,7 +256,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/nilai2"
+        android:id="@+id/status"
         android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"

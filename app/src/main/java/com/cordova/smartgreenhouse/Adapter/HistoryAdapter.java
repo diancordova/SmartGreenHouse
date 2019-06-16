@@ -60,7 +60,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             tanggal = itemView.findViewById(R.id.nameP);
             waktu = itemView.findViewById(R.id.nilaiPH);
             nutrisi = itemView.findViewById(R.id.text);
-            ph = itemView.findViewById(R.id.nilai2);
+            ph = itemView.findViewById(R.id.status);
             suhu = itemView.findViewById(R.id.value);
         }
     }

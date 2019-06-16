@@ -90,8 +90,9 @@ public class MyService extends Service {
         }
 
         mNotificationManager.notify(0, mBuilder.build());
-    }
 
+
+    }
 
     private void monitorNotifikasi(DatabaseReference refStatusAir, DatabaseReference refStatusNutrisi, DatabaseReference refStatusLampuUV, final DatabaseReference refStatusSpringkler) {
 

@@ -7,9 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -50,6 +48,8 @@ import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.View.OnClickListener;
 
 public class UserActivityDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -130,7 +130,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             }
         });
-        cvMonitor.setOnClickListener(new View.OnClickListener() {
+        cvMonitor.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
@@ -140,7 +140,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             }
         });
-        cvControl.setOnClickListener(new View.OnClickListener() {
+        cvControl.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
@@ -151,7 +151,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             }
         });
 
-        cvMetode.setOnClickListener(new View.OnClickListener() {
+        cvMetode.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
@@ -161,11 +161,11 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
 
             }
         });
-        cvHelp.setOnClickListener(new View.OnClickListener() {
+        cvHelp.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
-                        GraphAvtivity.class);
+                        HistoriActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
@@ -198,9 +198,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         refNutrisi1 = refTumbuhan.child("firstValue");
         refNutrisi2 =refTumbuhan.child("secondValue");
 
-
         nilai1 = findViewById(R.id.nilaiPH);
-        nilai2 = findViewById(R.id.nilai2);
+        nilai2 = findViewById(R.id.status);
         textViewPompaA = findViewById(R.id.tvTumbuhan);
         textViewPompaB = findViewById(R.id.tvMetode);
         textViewTumbuhan = findViewById(R.id.tvMonitoring);
@@ -208,14 +207,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -346,6 +338,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -360,7 +353,12 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             return true;
         }else if (id==R.id.hidroPonik){
             return  true;
+        } else if (id == R.id.log_out) {
+            return true;
+        } else if (id == R.id.settings) {
+            return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -440,9 +438,17 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 startActivity(n);
                 break;
             case R.id.aboout:
-                Intent m = new Intent(UserActivityDrawer.this, MonitoringActivity.class);
+                Intent m = new Intent(UserActivityDrawer.this, SettingActivity.class);
                 startActivity(m);
                 break;
+            case R.id.log_out:
+                KonfirmasiLogout();
+
+            case R.id.settings:
+                Intent p = new Intent(UserActivityDrawer.this, SettingActivity.class);
+                startActivity(p);
+                break;
+
 
             case R.id.logout:
                 KonfirmasiLogout();

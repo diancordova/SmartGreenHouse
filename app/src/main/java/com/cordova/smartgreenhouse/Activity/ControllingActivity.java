@@ -7,13 +7,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -45,14 +46,15 @@ public class ControllingActivity extends AppCompatActivity {
     private DatabaseReference database1;
     DatabaseReference refHome = database.getReference("sensor");
     DatabaseReference refHome1 = database.getReference("control");
-    DatabaseReference refDHT, refTemp, refHmd,refPhotoDioda,refTumbuhan,refStatus,refStatusAir,
-            refUrl,refStatusLampuUV,refStatusPhotoDioda,refLampuUV,refSpringkle,refStatusSprinkle,
-            refAir, refNutrisii, refStatusManual, refManual, refStatusNutrisi, refUV, refDioda, refName, refIsLoading, refIsLoading1, refNilaiPhotoDioda, refPH, refNilaiPh, refStatusPH, refNutrisi, refNilaiNutrisi, refNilaiSuhu;
+    DatabaseReference refDHT, refIpPublicValue, refTemp, refHmd, refPhotoDioda, refTumbuhan, refStatus, refStatusAir,
+            refUrl, refStatusLampuUV, refSetting, refStatusPhotoDioda, refLampuUV, refSpringkle, refStatusSprinkle,
+            refAir, refIpPublic, refNutrisii, refStatusManual, refManual, refStatusNutrisi, refUV, refDioda, refName, refIsLoading, refIsLoading1, refNilaiPhotoDioda, refPH, refNilaiPh, refStatusPH, refNutrisi, refNilaiNutrisi, refNilaiSuhu;
     private ProgressDialog pDialog;
     Switch switchOnOffUV,switchOnOffSprinkle,switchOnOffAir,switchOnOffNutrisi;
     TextView tvNilaiSuhu,tvNilaiIntenstitas,tvNilaiPH,tvNilaiNutrisi;
     TextView textViewStatusNutrisi,textViewStatusAir,textViewStatusUV,textViewStatusSprinkle,tvMonitoring;
     ImageView fotoTumbuhan;
+    WebView webviewCam;
     private FirebaseAuth firebaseAuth;
     private SessionManager session;
     private String temperature_,humadity;
@@ -105,6 +107,15 @@ public class ControllingActivity extends AppCompatActivity {
         refManual = refHome1.child("manual");
         refStatusManual = refManual.child("status");
 
+        refSetting = database.getReference("setting");
+        refIpPublic = refSetting.child("ip_public");
+        refIpPublicValue = refIpPublic.child("value");
+
+        webviewCam = findViewById(R.id.webviewCam);
+        webviewCam.getSettings().setSupportZoom(true);
+        webviewCam.getSettings().setBuiltInZoomControls(true);
+        webviewCam.getSettings().setDisplayZoomControls(false);
+        webviewCam.setWebViewClient(new WebViewClient());
 
 
 
@@ -117,13 +128,8 @@ public class ControllingActivity extends AppCompatActivity {
 
 
 
-        //Inisialisasi object TextView
-        //  appbar=(AppBarLayout)findViewById(R.id.appbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_nav_menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -159,16 +165,43 @@ public class ControllingActivity extends AppCompatActivity {
 
         monitoring(refNilaiNutrisi, tvNilaiNutrisi, refNilaiSuhu, tvNilaiSuhu, refNilaiPh, tvNilaiPH, refNilaiPhotoDioda, tvNilaiIntenstitas, refStatusManual);
         monitorTumbuhan(refUrl, refName);
+        monitorCamera(refIpPublicValue);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         status();
+    }
+
+    private void monitorCamera(DatabaseReference refIpPublicValue) {
+        refIpPublicValue.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                webviewCam.loadUrl("http://" + dataSnapshot.getValue().toString() + ":8081");
+                Log.d("cobanah", dataSnapshot.getValue().toString() + ":8081");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        refIpPublicValue.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                webviewCam.loadUrl("http://" + dataSnapshot.getValue().toString() + ":8081");
+                Log.d("cobanah2", dataSnapshot.getValue().toString() + ":8081");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void status() {
         refStatusManual.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("billigood", dataSnapshot.getValue().toString());
                 if (dataSnapshot.getValue().toString() == "true") {
                     spinnerAuto.setSelection(1);
                 } else {
@@ -206,10 +239,6 @@ public class ControllingActivity extends AppCompatActivity {
                     switchOnOffAir.setChecked(menyala);
                     textViewStatusAir.setText("Mati");
                 }
-//                controlling(refStatusAir,switchOnOffAir,textViewStatusAir,
-//                        refStatusNutrisi,switchOnOffNutrisi,textViewStatusNutrisi,
-//                        refStatusLampuUV,switchOnOffUV,textViewStatusUV,
-//                        refStatusSprinkle,switchOnOffSprinkle,textViewStatusSprinkle);
                 statusAir();
             }
 
@@ -625,7 +654,7 @@ public class ControllingActivity extends AppCompatActivity {
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.setMessage("Loading ....");
-            pDialog.show();
+        pDialog.show();
     }
 
     private void hideDialog() {
@@ -642,5 +671,11 @@ public class ControllingActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+
     }
 }

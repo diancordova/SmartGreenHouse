@@ -4,10 +4,10 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -83,11 +83,11 @@ public class ActivityMonitorGreenHouse extends AppCompatActivity {
         refIsLoading1 = refManual.child("isLoading1");
 
         //Inisialisasi object TextView
-        textViewTemp = (TextView) findViewById(R.id.tvPH);
-        textViewHMD = (TextView) findViewById(R.id.nilai2);
-        textViewStatusIntensitas = (TextView) findViewById(R.id.tvMonitoring);
-        textViewStatusUV = (TextView) findViewById(R.id.tvTumbuhan);
-        textViewStatusSprinkle= (TextView) findViewById(R.id.tvMetode);
+        textViewTemp = findViewById(R.id.tvPH);
+        textViewHMD = findViewById(R.id.status);
+        textViewStatusIntensitas = findViewById(R.id.tvMonitoring);
+        textViewStatusUV = findViewById(R.id.tvTumbuhan);
+        textViewStatusSprinkle = findViewById(R.id.tvMetode);
         switchOnOffUV = findViewById(R.id.switchUltraviolet);
         switchOnOffSprinkle = findViewById(R.id.switchSpringkler);
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <PreferenceCategory android:title="Pengaturan">
+
+
+        <Preference
+            android:id="@+id/prefHostname"
+            android:key="prefHostname"
+            android:summary="raspberrypi"
+            android:title="Hostname Raspberry Pi"></Preference>
+
+        <Preference
+            android:id="@+id/prefIPpublic"
+            android:key="prefIPpublic"
+            android:summary="32.32.1.1"
+            android:title="IP Public"></Preference>
+        <Preference
+            android:id="@+id/prefIPLocal"
+            android:key="prefIPLocal"
+            android:summary="192.168.43.60"
+            android:title="IP Lokal"></Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

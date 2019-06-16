@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <include
             layout="@layout/app_bar_user"
             android:layout_width="match_parent"
@@ -21,8 +22,8 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             app:cardCornerRadius="50dp">
 
             <LinearLayout
@@ -132,7 +133,13 @@
                 </LinearLayout>
             </LinearLayout>
 
+
         </android.support.v7.widget.CardView>
+
+        <WebView
+            android:id="@+id/webviewCam"
+            android:layout_width="match_parent"
+            android:layout_height="240dp" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -160,7 +167,7 @@
 
                 <Spinner
                     android:id="@+id/spinnerAuto"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:dropDownSelector="@color/colorAccent"
@@ -310,5 +317,6 @@
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
 </ScrollView>

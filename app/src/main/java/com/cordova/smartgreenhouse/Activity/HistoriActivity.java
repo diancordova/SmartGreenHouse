@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -45,10 +46,12 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histori);
-
+//        nilaimaximal();
         databaseReference = FirebaseDatabase.getInstance().getReference("history");
         mRecycleView = findViewById(R.id.recycler_view);
         graphView = findViewById(R.id.graphView);
+        GridLabelRenderer glr = graphView.getGridLabelRenderer();
+        glr.setPadding(64);
         series= new LineGraphSeries();
         graphView.addSeries(series);
         pDialog = new ProgressDialog(this);
@@ -58,8 +61,8 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
         graphView.getViewport().setMinX(1);
         graphView.getViewport().setMaxX(20);
         graphView.getViewport().setYAxisBoundsManual(true);
-        graphView.getViewport().setMinY(300);
-        graphView.getViewport().setMaxY(3000);
+//        graphView.getViewport().setMinY(300);
+//        graphView.getViewport().setMaxY(3000);
         graphView.getViewport().setScalable(true);
 
         listHistory = new ArrayList<>();
@@ -82,6 +85,7 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -92,13 +96,26 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
                 hideDialog();
                 DataPoint[] dp=new DataPoint[(int) dataSnapshot.getChildrenCount()];
                 int index=0;
-
+                int terbesar = 0;
+                int terkecil = 0;
 
                 for (DataSnapshot myDataSnapshot : dataSnapshot.getChildren()){
                     History history = myDataSnapshot.getValue(History.class);
-                    dp[index] = new DataPoint(index + 1, history.getyValue());
+                    if (index == 0) {
+                        terkecil = history.getNutrisi();
+                    } else {
+                        if (history.getNutrisi() < terkecil) {
+                            terkecil = history.getNutrisi();
+                        }
+                    }
+                    if (history.getNutrisi() > terbesar) {
+                        terbesar = history.getNutrisi();
+                    }
+                    dp[index] = new DataPoint(index + 1, history.getNutrisi());
                     index++;
                 }
+                graphView.getViewport().setMinY(terkecil);
+                graphView.getViewport().setMaxY(terbesar);
                 series.resetData(dp);
             }
 
