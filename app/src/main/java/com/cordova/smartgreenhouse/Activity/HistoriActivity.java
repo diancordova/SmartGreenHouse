@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
     com.jjoe64.graphview.GraphView graphView;
     LineGraphSeries series;
     ProgressDialog pDialog;
+    Toolbar toolbar;
 
 
 
@@ -53,9 +55,15 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
         GridLabelRenderer glr = graphView.getGridLabelRenderer();
         glr.setPadding(64);
         series= new LineGraphSeries();
+        series.setColor(getResources().getColor(R.color.colorPrimary));
         graphView.addSeries(series);
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setMinX(1);

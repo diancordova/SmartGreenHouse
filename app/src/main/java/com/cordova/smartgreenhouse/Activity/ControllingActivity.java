@@ -1,9 +1,13 @@
 package com.cordova.smartgreenhouse.Activity;
 
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -13,7 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
@@ -54,6 +60,7 @@ public class ControllingActivity extends AppCompatActivity {
     Switch switchOnOffUV,switchOnOffSprinkle,switchOnOffAir,switchOnOffNutrisi;
     TextView tvNilaiSuhu,tvNilaiIntenstitas,tvNilaiPH,tvNilaiNutrisi;
     TextView textViewStatusNutrisi,textViewStatusAir,textViewStatusUV,textViewStatusSprinkle,tvMonitoring;
+    TextView cameraStatus;
     ImageView fotoTumbuhan;
     WebView webviewCam;
     private FirebaseAuth firebaseAuth;
@@ -116,8 +123,6 @@ public class ControllingActivity extends AppCompatActivity {
         webviewCam.getSettings().setSupportZoom(true);
         webviewCam.getSettings().setBuiltInZoomControls(true);
         webviewCam.getSettings().setDisplayZoomControls(false);
-        webviewCam.setWebViewClient(new WebViewClient());
-
 
 
         //------------NILAI DATA FIREBASE DARI SENSOR PH-----------//
@@ -144,6 +149,7 @@ public class ControllingActivity extends AppCompatActivity {
         textViewStatusSprinkle =findViewById(R.id.tvStatusSpringkler);
         tvMonitoring = findViewById(R.id.tvMonitoring);
         fotoTumbuhan = findViewById(R.id.fotoTumbuhan);
+        cameraStatus = findViewById(R.id.cameraStatus);
 
         //inisiasisasi SWITCH
         switchOnOffAir = findViewById(R.id.switchAir);
@@ -170,12 +176,50 @@ public class ControllingActivity extends AppCompatActivity {
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         status();
+
+
     }
 
     private void monitorCamera(DatabaseReference refIpPublicValue) {
         refIpPublicValue.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                webviewCam.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                        super.onPageStarted(view, url, favicon);
+                        webviewCam.setVisibility(View.VISIBLE);
+                        cameraStatus.setText("Camera");
+                    }
+
+                    @Override
+                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                        webviewCam.setVisibility(View.GONE);
+                        cameraStatus.setText("Canera Tidak Tersedia");
+
+                        Log.d("FREEBROWSER", "----------------- ERROR deprecated ---------------");
+                    }
+
+                    @Override
+                    @TargetApi(android.os.Build.VERSION_CODES.M)
+                    public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
+                        webviewCam.setVisibility(View.GONE);
+                        cameraStatus.setText("Canera Tidak Tersedia");
+
+                        Log.d("FREEBROWSER", "----------------- ERROR " + rerr.getDescription() + " ---------------");
+                        // Redirect to deprecated method, so you can use it in all SDK versions
+                        onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
+                    }
+
+                    @Override
+                    @TargetApi(android.os.Build.VERSION_CODES.M)
+                    public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                        webviewCam.setVisibility(View.GONE);
+                        cameraStatus.setText("Canera Tidak Tersedia");
+                        Log.d("FREEBROWSER", "----------------- ERROR " + " ---------------");
+                        onReceivedError(view, errorResponse.getStatusCode(), errorResponse.getReasonPhrase(), request.getUrl().toString());
+                    }
+                });
                 webviewCam.loadUrl("http://" + dataSnapshot.getValue().toString() + ":8081");
             }
 
@@ -187,12 +231,45 @@ public class ControllingActivity extends AppCompatActivity {
         refIpPublicValue.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                webviewCam.setWebViewClient(new WebViewClient() {
+
+                webviewCam.setWebViewClient((new WebViewClient() {
                     @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        return super.shouldOverrideUrlLoading(view, request);
+                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                        super.onPageStarted(view, url, favicon);
+                        webviewCam.setVisibility(View.VISIBLE);
+                        cameraStatus.setText("Camera");
+
                     }
-                });
+
+                    @Override
+                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                        webviewCam.setVisibility(View.GONE);
+                        cameraStatus.setText("Camera Tidak Tersedia");
+                        Log.d("FREEBROWSER", "----------------- ERROR deprecated ---------------");
+                    }
+
+                    @Override
+                    @TargetApi(android.os.Build.VERSION_CODES.M)
+                    public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
+                        webviewCam.setVisibility(View.GONE);
+                        cameraStatus.setText("Camera Tidak Tersedia");
+
+                        Log.d("FREEBROWSER", "----------------- ERROR " + rerr.getDescription() + " ---------------");
+                        // Redirect to deprecated method, so you can use it in all SDK versions
+                        onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
+                    }
+
+                    @Override
+                    @TargetApi(android.os.Build.VERSION_CODES.M)
+                    public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                        webviewCam.setVisibility(View.GONE);
+                        cameraStatus.setText("Camera Tidak Tersedia");
+
+                        Log.d("FREEBROWSER", "----------------- ERROR " + " ---------------");
+                        onReceivedError(view, errorResponse.getStatusCode(), errorResponse.getReasonPhrase(), request.getUrl().toString());
+                    }
+                }));
+                webviewCam.loadUrl("http://" + dataSnapshot.getValue().toString() + ":8081");
             }
 
             @Override
@@ -682,4 +759,29 @@ public class ControllingActivity extends AppCompatActivity {
         this.finish();
 
     }
+
 }
+//class WebviewCamku extends WebViewClient{
+//
+//
+//        @Override
+//        @TargetApi(Build.VERSION_CODES.M)
+//        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+////            super.onReceivedError(view, request, error);
+//            final Uri uri = request.getUrl();
+//            handleError(view, error.getErrorCode(), error.getDescription().toString(), uri);
+//        }
+//
+//        @SuppressWarnings("deprecation")
+//        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+////            super.onReceivedError(view, errorCode, description, failingUrl);
+//            final Uri uri = Uri.parse(failingUrl);
+//            handleError(view, errorCode, description, uri);
+//        }
+//
+//        private void handleError(WebView view, int errorCode, String description, final Uri uri) {
+//            final String host = uri.getHost();// e.g. "google.com"
+//            final String scheme = uri.getScheme();// e.g. "https"
+//            // TODO: logic
+//        }
+//    }

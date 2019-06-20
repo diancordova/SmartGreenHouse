@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -92,6 +93,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_drawer);
         spinner = findViewById(R.id.lokasiSpinner);
+//        spinner.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
         fotoTumbuhan = findViewById(R.id.fotoTumbuhan);
         cvMonitor=findViewById(R.id.cvMonitor);
         cvControl=findViewById(R.id.cvControl);
@@ -180,7 +183,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
         session = new SessionManager(getApplicationContext());
 
 
-        adapterPlant = new ArrayAdapter<String>(getApplicationContext(),
+        adapterPlant = new ArrayAdapter<String>(getBaseContext(),
                 android.R.layout.simple_spinner_item, list1);
         adapterPlant.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

@@ -60,7 +60,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Nutrisi : " />
+                                android:text="Nutrisi : "
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/nilaiPH"
@@ -86,7 +88,9 @@
                             android:id="@+id/tvTumbuhan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Tumbuhan yang anda Pilih" />
+                            android:text="Tumbuhan yang anda Pilih"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvMonitoring"
@@ -96,7 +100,8 @@
                             android:text="Status Metode"
                             android:textAlignment="center"
                             android:textColor="#4CAF50"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

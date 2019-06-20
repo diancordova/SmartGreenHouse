@@ -35,7 +35,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Integer posisi = position + 1;
         mHistory data = modelList.get(position);
-        holder.nomor.setText(posisi.toString());
+        holder.nomor.setText(posisi.toString() + ".");
         holder.tanggal.setText(data.getTanggal());
         holder.waktu.setText(data.getWaktu());
         holder.nutrisi.setText( Integer.toString(data.getNutrisi()));
