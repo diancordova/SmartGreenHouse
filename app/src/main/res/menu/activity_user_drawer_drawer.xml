@@ -13,44 +13,8 @@
             android:id="@+id/AddData"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Add Plant" />
-        <item
-            android:id="@+id/history"
-            android:icon="@drawable/googleg_disabled_color_18"
-            android:title="History" />
 
 
     </group>
-
-    <item android:title="Monitoring">
-        <menu>
-
-            <item
-                android:id="@+id/greenHouse"
-                android:title="GreenHouse" />
-            <item
-                android:id="@+id/hidroPonik"
-                android:title="hidroPonik" />
-
-        </menu>
-    </item>
-    <item android:title="Controling">
-        <menu>
-            <item
-                android:id="@+id/controlling"
-                android:title="Controlling" />
-            <item
-                android:id="@+id/monitoring"
-                android:title="Monitoring" />
-            <item
-                android:id="@+id/metod"
-                android:title="Hasil Metode" />
-            <item
-                android:id="@+id/aboout"
-                android:title="Tentang" />
-            <item
-                android:id="@+id/logout"
-                android:title="Log Out" />
-        </menu>
-    </item>
 
 </menu>

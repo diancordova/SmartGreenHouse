@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
@@ -176,7 +177,6 @@ public class ControllingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 webviewCam.loadUrl("http://" + dataSnapshot.getValue().toString() + ":8081");
-                Log.d("cobanah", dataSnapshot.getValue().toString() + ":8081");
             }
 
             @Override
@@ -187,8 +187,12 @@ public class ControllingActivity extends AppCompatActivity {
         refIpPublicValue.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                webviewCam.loadUrl("http://" + dataSnapshot.getValue().toString() + ":8081");
-                Log.d("cobanah2", dataSnapshot.getValue().toString() + ":8081");
+                webviewCam.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                        return super.shouldOverrideUrlLoading(view, request);
+                    }
+                });
             }
 
             @Override

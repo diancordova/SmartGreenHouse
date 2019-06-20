@@ -20,6 +20,7 @@
         <activity android:name=".Activity.GraphAvtivity" />
         <activity
             android:name=".Activity.MetodeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.SplashScreen"

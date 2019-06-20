@@ -1,12 +1,12 @@
 package com.cordova.smartgreenhouse.Activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -146,23 +146,20 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
         });
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                finish();
+                Log.d("tutup", "tutup");
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent i=new Intent(HistoriActivity.this, UserActivityDrawer.class);
-        startActivity(i);
+        this.finish();
+
     }
 
     private void showDialog() {
@@ -175,4 +172,5 @@ public class HistoriActivity<GraphView> extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
 }

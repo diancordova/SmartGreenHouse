@@ -82,6 +82,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
          mSettings = PreferenceManager.getDefaultSharedPreferences(this);
         editor = mSettings.edit();
         editor.apply();
+
         setTitle("");
         database1 = FirebaseDatabase.getInstance().getReference();
         pDialog = new ProgressDialog(this);
@@ -349,13 +350,11 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             return true;
         }else if (id == R.id.AddData) {
             return true;
-        }else if (id == R.id.history) {
-            return true;
-        }else if (id==R.id.hidroPonik){
-            return  true;
-        } else if (id == R.id.log_out) {
-            return true;
         } else if (id == R.id.settings) {
+            startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+            return true;
+        } else if (id == R.id.log_out) {
+            KonfirmasiLogout();
             return true;
         }
 
@@ -413,45 +412,8 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
                 Intent i = new Intent(UserActivityDrawer.this,PlantActivity.class);
                 startActivity(i);
                 break;
-            case R.id.history:
-                Intent g = new Intent(UserActivityDrawer.this, HistoriActivity.class);
-                startActivity(g);
-                break;
-            case R.id.controlling:
-                Intent j = new Intent(UserActivityDrawer.this, ControllingActivity.class);
-                startActivity(j);
-                break;
-            case R.id.monitoring:
-                Intent o = new Intent(UserActivityDrawer.this, MonitoringActivity.class);
-                startActivity(o);
-                break;
-            case R.id.greenHouse:
-                Intent k = new Intent(UserActivityDrawer.this, ActivityMonitorGreenHouse.class);
-                startActivity(k);
-                break;
-            case R.id.hidroPonik:
-                Intent l = new Intent(UserActivityDrawer.this, MonitoringActivity.class);
-                startActivity(l);
-                break;
-            case R.id.metod:
-                Intent n = new Intent(UserActivityDrawer.this, ActivityMonitorGreenHouse.class);
-                startActivity(n);
-                break;
-            case R.id.aboout:
-                Intent m = new Intent(UserActivityDrawer.this, SettingActivity.class);
-                startActivity(m);
-                break;
-            case R.id.log_out:
-                KonfirmasiLogout();
-
-            case R.id.settings:
-                Intent p = new Intent(UserActivityDrawer.this, SettingActivity.class);
-                startActivity(p);
-                break;
 
 
-            case R.id.logout:
-                KonfirmasiLogout();
 
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -467,7 +429,7 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             switch (i) {
                 case 0:
                     sliderView.setImageUrl("https://innovate2019.tinc.id/assets/uploads/greenhouse1.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
-                    sliderView.setDescription("Implementasi SPRINGKLER guna mendinginkan suhu yang berada didalam GREENHOUSE " );
+                    sliderView.setDescription("Implementasi Sprinkler guna mendinginkan suhu yang berada didalam Greenhouse ");
                     break;
                 case 1:
                     sliderView.setImageUrl("https://innovate2019.tinc.id/assets/uploads/greenhouse2.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
@@ -490,7 +452,6 @@ public class UserActivityDrawer extends AppCompatActivity implements NavigationV
             sliderView.setOnSliderClickListener(new SliderView.OnSliderClickListener() {
                 @Override
                 public void onSliderClick(SliderView sliderView) {
-                    Toast.makeText(UserActivityDrawer.this, "This is slider " + (finalI + 1), Toast.LENGTH_SHORT).show();
 
                 }
             });
