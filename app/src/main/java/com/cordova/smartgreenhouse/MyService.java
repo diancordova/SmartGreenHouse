@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -62,7 +64,7 @@ public class MyService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+                new NotificationCompat.Builder(getBaseContext(), "notify_001");
         //Intent ii = new Intent(mContext.getApplicationContext(), RootActivity.class);
         //PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, ii, 0);
 
@@ -74,18 +76,24 @@ public class MyService extends Service {
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.logo);
         mBuilder.setContentTitle("Notifikasi Baru");
+        mBuilder.setDefaults(Notification.DEFAULT_ALL);
         mBuilder.setContentText(keterangan + " Nyala");
-        mBuilder.setPriority(Notification.PRIORITY_MAX);
+//        mBuilder.setPriority(NotificationManager.IMPORTANCE_MAX);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
         mBuilder.setStyle(bigText);
+        mBuilder.setOngoing(false);
+
 
         NotificationManager mNotificationManager =
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+        Uri suaraNotif = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("notify_001",
                     "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_HIGH);
             mNotificationManager.createNotificationChannel(channel);
         }
 

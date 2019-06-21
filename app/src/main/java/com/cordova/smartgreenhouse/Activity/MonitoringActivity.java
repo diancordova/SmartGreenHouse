@@ -263,7 +263,7 @@ public class MonitoringActivity extends AppCompatActivity {
         refNilaiWaterLevel.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                textViewWaterLevel.setText(dataSnapshot.getValue() + " %");
+                textViewWaterLevel.setText(dataSnapshot.getValue() + " ");
             }
 
             @Override

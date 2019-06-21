@@ -6,8 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -94,7 +92,7 @@ public class ControllingActivity extends AppCompatActivity {
         refHmd = refDHT.child("humidity");
         //------------NILAI DATA FIREBASE DARI SENSOR photoDida-----------//
         refPhotoDioda = refHome.child("photoDioda");
-        refNilaiPhotoDioda = refPhotoDioda.child("nilai");
+        refNilaiPhotoDioda = refPhotoDioda.child("value");
         //------------STATUS DATA FIREBASE DARI NYALA LAMPU Ultra Violet-----------//
         refLampuUV = refHome.child("relay");
         refStatusLampuUV = refLampuUV.child("status");
